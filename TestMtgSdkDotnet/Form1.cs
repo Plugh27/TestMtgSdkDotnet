@@ -1,20 +1,200 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Net;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace TestMtgSdkDotnet
 {
+    // カードセットの情報が更新された時の処理
+    delegate void UpdateSetInfo(List<SetInfo> sets);
+
+    // カードセットが選択された時の処理
+    delegate void SelectSetInfo(List<SetInfo> sets);
+
+    // カード情報が更新された時の処理
+    delegate void UpdateCardInfo(List<CardInfo> cardInfos);
+
+    // カード情報が選択された時の処理
+    delegate void SelectCardInfo(List<CardInfo> cardInfos);
+
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private ListOfSet _listOfSet;
+        private ListOfCards _listOfCards;
+        private ListOfImages _listOfImages;
+
+        private List<Form> _childForms;
+        private List<string> _childFormPropertyNames;
+
+        private UpdateSetInfo _updateSetInfo;
+        private SelectSetInfo _selectSetInfo;
+        private UpdateCardInfo _updateCardInfo;
+        private SelectCardInfo _selectCardInfo;
+
+        private List<CardInfo> _cardInfos;
+
+        private string officialSetInfoFileName = "OfficialSetInfo.json";
+        private string officialCardInfoFileNameFormat = "OfficialCardInfo_{0}.json";
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // 子フォームの生成、表示
+            _listOfSet = new ListOfSet();
+            _listOfCards = new ListOfCards();
+            _listOfImages = new ListOfImages();
+
+            _childForms = new List<Form>()
+            {
+                _listOfSet,
+                _listOfCards,
+                _listOfImages
+            };
+
+            _childFormPropertyNames = new List<string>()
+            {
+                "ListOfSet",
+                "ListOfCards",
+                "ListOfImages"
+            };
+
+            // 子フォームを表示する
+            foreach (var childForm in _childForms)
+            {
+                childForm.MdiParent = this;
+                childForm.Show();
+            }
+
+            // 本クラスが持つデリゲートの設定
+            _updateSetInfo += _listOfSet.UpdateSet;
+            _selectSetInfo += SelectSet;
+            _updateCardInfo += _listOfCards.UpdateCardInfo;
+            _selectCardInfo += _listOfImages.SelectCard;
+
+            // 子フォームのLocation, Sizeを復元する
+            for (int i = 0; i < _childForms.Count; i++)
+            {
+                _childForms[i].Location = (Point)Properties.Settings.Default[_childFormPropertyNames[i] + "Location"];
+                _childForms[i].Size = (Size)Properties.Settings.Default[_childFormPropertyNames[i] + "Size"];
+            }
+        }
+
+        public void CallSelectSet(List<SetInfo> sets)
+        {
+            _selectSetInfo(sets);
+        }
+
+        public void CallSelectCard(List<CardInfo> cardInfos)
+        {
+            _selectCardInfo(cardInfos);
+        }
+
+        private void SelectSet(List<SetInfo> sets)
+        {
+            _cardInfos = new List<CardInfo>();
+            foreach (var setInfo in sets)
+            {
+                // ディスクにデータがあるかチェックして、なければネットから取得する
+                string oneSetCardInfosFileName = string.Format(officialCardInfoFileNameFormat, setInfo.code);
+                if (!File.Exists(oneSetCardInfosFileName))
+                {
+                    List<CardInfo> oneSetCardInfos = new List<CardInfo>();
+                    for (int page = 1; page < 10; page++)
+                    {
+                        string jsonCardInfo = GetCardInfo(page, setInfo.code);
+                        ApiResponseData apiResponseData = JsonConvert.DeserializeObject<ApiResponseData>(jsonCardInfo);
+                        if (apiResponseData.cards.Count == 0)
+                        {
+                            break;
+                        }
+
+                        oneSetCardInfos.AddRange(apiResponseData.cards);
+                    }
+
+                    // 取得したデータをディスクに保存する
+                    string jsonOneSetCardInfos = JsonConvert.SerializeObject(oneSetCardInfos, Formatting.Indented);
+                    File.WriteAllText(oneSetCardInfosFileName, jsonOneSetCardInfos);
+                }
+
+                // ディスクのデータをドットネットのデータ型に変換する
+                _cardInfos.AddRange(
+                    JsonConvert.DeserializeObject<List<CardInfo>>(File.ReadAllText(oneSetCardInfosFileName)));
+
+            }
+
+            // イベント発生させる
+            _updateCardInfo(_cardInfos);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // 子フォームのLocation, Sizeを保存する
+            for (int i = 0; i < _childForms.Count; i++)
+            {
+                Properties.Settings.Default[_childFormPropertyNames[i] + "Location"] = _childForms[i].Location;
+                Properties.Settings.Default[_childFormPropertyNames[i] + "Size"] = _childForms[i].Size;
+            }
+
+            Properties.Settings.Default.Save();
+        }
+
+        public static string GetSetInfo()
+        {
+            string url = "https://api.magicthegathering.io/v1/sets";
+
+            WebClient wc = new WebClient();
+
+            Stream st = wc.OpenRead(url);
+            StreamReader sr = new StreamReader(st ?? throw new InvalidOperationException());
+
+            string jsonCardSetInfo = sr.ReadToEnd();
+
+            sr.Close();
+            st.Close();
+
+            return jsonCardSetInfo;
+        }
+
+        public static string GetCardInfo(int page, string setName)
+        {
+            // TODO: GetSetInfoと合わせて定数値にする
+            string url = "https://api.magicthegathering.io/v1/cards?page=" + page + "&set=" + setName;
+
+            WebClient wc = new WebClient();
+
+            Stream st = wc.OpenRead(url);
+            StreamReader sr = new StreamReader(st ?? throw new InvalidOperationException());
+
+            string jsonCardInfo = sr.ReadToEnd();
+
+            sr.Close();
+            st.Close();
+
+            return jsonCardInfo;
+        }
+
+        private void StartInitializeSetInfoButton_Click(object sender, EventArgs e)
+        {
+            // セット情報のJSONデータがディスクになければWebから取得する
+            if (!File.Exists(officialSetInfoFileName))
+            {
+                string json = GetSetInfo();
+                File.WriteAllText(officialSetInfoFileName, json);
+            }
+
+            // セット情報をディスクから取得する
+            string jsonOfGetAllSets = File.ReadAllText(officialSetInfoFileName);
+            DataOfGetAllSets dataOfGetAllSets = JsonConvert.DeserializeObject<DataOfGetAllSets>(jsonOfGetAllSets);
+
+            // イベント発生させる
+            _updateSetInfo(dataOfGetAllSets.sets);
         }
     }
 }
