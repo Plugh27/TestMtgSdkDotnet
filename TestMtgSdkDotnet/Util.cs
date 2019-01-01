@@ -16,7 +16,7 @@ namespace TestMtgSdkDotnet
 {
     class Util
     {
-        private static string _officialCardImageFileNameFormat;
+        public static readonly string _officialCardImageFileNameFormat = "Image{0}.jfif";
 
         /// <summary>
         /// ObjectListViewのColumnの初期設定を行う。
@@ -60,7 +60,6 @@ namespace TestMtgSdkDotnet
         public static void DownloadCardImage(List<CardInfo> cardInfos)
         {
             string officialCardImageFormat = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={0}&type=card";
-            _officialCardImageFileNameFormat = "Image{0}.jfif";
 
             foreach (var cardInfo in cardInfos)
             {

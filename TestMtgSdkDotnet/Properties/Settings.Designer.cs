@@ -12,7 +12,7 @@ namespace TestMtgSdkDotnet.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.7.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -37,7 +37,7 @@ namespace TestMtgSdkDotnet.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100, 200")]
         public global::System.Drawing.Size ListOfSetSize {
             get {
                 return ((global::System.Drawing.Size)(this["ListOfSetSize"]));
@@ -49,7 +49,7 @@ namespace TestMtgSdkDotnet.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10, 10")]
         public global::System.Drawing.Point ListOfCardsLocation {
             get {
                 return ((global::System.Drawing.Point)(this["ListOfCardsLocation"]));
@@ -61,7 +61,7 @@ namespace TestMtgSdkDotnet.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100, 200")]
         public global::System.Drawing.Size ListOfCardsSize {
             get {
                 return ((global::System.Drawing.Size)(this["ListOfCardsSize"]));
@@ -73,7 +73,7 @@ namespace TestMtgSdkDotnet.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("20, 20")]
         public global::System.Drawing.Point ListOfImagesLocation {
             get {
                 return ((global::System.Drawing.Point)(this["ListOfImagesLocation"]));
@@ -85,13 +85,61 @@ namespace TestMtgSdkDotnet.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0, 0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100, 200")]
         public global::System.Drawing.Size ListOfImagesSize {
             get {
                 return ((global::System.Drawing.Size)(this["ListOfImagesSize"]));
             }
             set {
                 this["ListOfImagesSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30, 30")]
+        public global::System.Drawing.Point ViewUserInputLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["ViewUserInputLocation"]));
+            }
+            set {
+                this["ViewUserInputLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100, 200")]
+        public global::System.Drawing.Size ViewUserInputSize {
+            get {
+                return ((global::System.Drawing.Size)(this["ViewUserInputSize"]));
+            }
+            set {
+                this["ViewUserInputSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("40, 40")]
+        public global::System.Drawing.Point ViewImageLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["ViewImageLocation"]));
+            }
+            set {
+                this["ViewImageLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100, 200")]
+        public global::System.Drawing.Size ViewImageSize {
+            get {
+                return ((global::System.Drawing.Size)(this["ViewImageSize"]));
+            }
+            set {
+                this["ViewImageSize"] = value;
             }
         }
     }

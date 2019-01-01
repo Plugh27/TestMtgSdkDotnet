@@ -6,19 +6,31 @@
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
     <Setting Name="ListOfSetSize" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">0, 0</Value>
+      <Value Profile="(Default)">100, 200</Value>
     </Setting>
     <Setting Name="ListOfCardsLocation" Type="System.Drawing.Point" Scope="User">
-      <Value Profile="(Default)">0, 0</Value>
+      <Value Profile="(Default)">10, 10</Value>
     </Setting>
     <Setting Name="ListOfCardsSize" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">0, 0</Value>
+      <Value Profile="(Default)">100, 200</Value>
     </Setting>
     <Setting Name="ListOfImagesLocation" Type="System.Drawing.Point" Scope="User">
-      <Value Profile="(Default)">0, 0</Value>
+      <Value Profile="(Default)">20, 20</Value>
     </Setting>
     <Setting Name="ListOfImagesSize" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">0, 0</Value>
+      <Value Profile="(Default)">100, 200</Value>
+    </Setting>
+    <Setting Name="ViewUserInputLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">30, 30</Value>
+    </Setting>
+    <Setting Name="ViewUserInputSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">100, 200</Value>
+    </Setting>
+    <Setting Name="ViewImageLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">40, 40</Value>
+    </Setting>
+    <Setting Name="ViewImageSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">100, 200</Value>
     </Setting>
   </Settings>
 </SettingsFile>

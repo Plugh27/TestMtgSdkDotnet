@@ -30,6 +30,8 @@ namespace TestMtgSdkDotnet
         private ListOfSet _listOfSet;
         private ListOfCards _listOfCards;
         private ListOfImages _listOfImages;
+        private ViewUserInput _viewUserInput;
+        private ViewImage _viewImage;
 
         private List<Form> _childForms;
         private List<string> _childFormPropertyNames;
@@ -50,19 +52,25 @@ namespace TestMtgSdkDotnet
             _listOfSet = new ListOfSet();
             _listOfCards = new ListOfCards();
             _listOfImages = new ListOfImages();
+            _viewUserInput = new ViewUserInput();
+            _viewImage = new ViewImage();
 
             _childForms = new List<Form>()
             {
                 _listOfSet,
                 _listOfCards,
-                _listOfImages
+                _listOfImages,
+                _viewUserInput,
+                _viewImage
             };
 
             _childFormPropertyNames = new List<string>()
             {
                 "ListOfSet",
                 "ListOfCards",
-                "ListOfImages"
+                "ListOfImages",
+                "ViewUserInput",
+                "ViewImage"
             };
 
             // 子フォームを表示する
@@ -77,6 +85,8 @@ namespace TestMtgSdkDotnet
             _selectSetInfo += SelectSet;
             _updateCardInfo += _listOfCards.UpdateCardInfo;
             _selectCardInfo += _listOfImages.SelectCard;
+            _selectCardInfo += _viewUserInput.SelectCardInfo;
+            _selectCardInfo += _viewImage.SelectCardInfo;
 
             // 子フォームのLocation, Sizeを復元する
             for (int i = 0; i < _childForms.Count; i++)
