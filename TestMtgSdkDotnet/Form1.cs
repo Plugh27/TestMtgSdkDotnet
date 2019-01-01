@@ -20,6 +20,9 @@ namespace TestMtgSdkDotnet
     // カード情報が選択された時の処理
     delegate void SelectCardInfo(List<CardInfo> cardInfos);
 
+    // ユーザ入力情報が選択された時の処理
+    delegate void UpdateUserInput(List<UserInputCardInfo> userInputCardInfos);
+
     public partial class Form1 : Form
     {
         public Form1()
@@ -40,11 +43,15 @@ namespace TestMtgSdkDotnet
         private SelectSetInfo _selectSetInfo;
         private UpdateCardInfo _updateCardInfo;
         private SelectCardInfo _selectCardInfo;
+        private UpdateUserInput _updateUserInput;
 
         private List<CardInfo> _cardInfos;
+        private List<UserInputCardInfo> _userInputCardInfos;
 
         private string officialSetInfoFileName = "OfficialSetInfo.json";
         private string officialCardInfoFileNameFormat = "OfficialCardInfo_{0}.json";
+        private string UserInputFileName = "UserInputCardInfo.json";
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -87,6 +94,8 @@ namespace TestMtgSdkDotnet
             _selectCardInfo += _listOfImages.SelectCard;
             _selectCardInfo += _viewUserInput.SelectCardInfo;
             _selectCardInfo += _viewImage.SelectCardInfo;
+            _updateUserInput += _viewUserInput.UpdateUserInput;
+            _updateUserInput += _listOfCards.UpdateUserInput;
 
             // 子フォームのLocation, Sizeを復元する
             for (int i = 0; i < _childForms.Count; i++)
@@ -104,6 +113,13 @@ namespace TestMtgSdkDotnet
         public void CallSelectCard(List<CardInfo> cardInfos)
         {
             _selectCardInfo(cardInfos);
+        }
+
+        public void SaveUserInfo()
+        {
+            // ユーザー入力情報をディスクに保存する
+            string jsonUserInputCardInfos = JsonConvert.SerializeObject(_userInputCardInfos, Formatting.Indented);
+            File.WriteAllText(UserInputFileName, jsonUserInputCardInfos);
         }
 
         private void SelectSet(List<SetInfo> sets)
@@ -205,6 +221,22 @@ namespace TestMtgSdkDotnet
 
             // イベント発生させる
             _updateSetInfo(dataOfGetAllSets.sets);
+
+
+            // ディスクからユーザー入力情報を取得する
+            if (File.Exists(UserInputFileName))
+            {
+                string jsonUserInputCardInfos = File.ReadAllText(UserInputFileName);
+                _userInputCardInfos = JsonConvert.DeserializeObject<List<UserInputCardInfo>>(jsonUserInputCardInfos);
+            }
+            else
+            {
+                _userInputCardInfos = new List<UserInputCardInfo>();
+            }
+
+            // イベント発生させる
+            _updateUserInput(_userInputCardInfos);
+
         }
     }
 }

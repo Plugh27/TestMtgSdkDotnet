@@ -20,6 +20,7 @@ namespace TestMtgSdkDotnet
 
         private List<CardInfo> _cardInfos;
         private List<CardInfo> _showCardInfos;
+        private List<UserInputCardInfo> _userInputCardInfos;
 
         private void ListOfCards_Load(object sender, EventArgs e)
         {
@@ -36,6 +37,7 @@ namespace TestMtgSdkDotnet
             {
                 "name",
                 "japaneaseName",
+                "draftPoint",
                 "colorsText",
                 "text"
             };
@@ -45,6 +47,7 @@ namespace TestMtgSdkDotnet
             {
                 120,
                 120,
+                40,
                 80,
                 800
             };
@@ -80,6 +83,13 @@ namespace TestMtgSdkDotnet
             MakeSoleList();
         }
 
+        public void UpdateUserInput(List<UserInputCardInfo> userInputCardInfos)
+        {
+            _userInputCardInfos = userInputCardInfos;
+
+            MakeSoleList();
+        }
+
         private void MakeSoleList()
         {
             if (_cardInfos == null)
@@ -89,6 +99,20 @@ namespace TestMtgSdkDotnet
             }
 
             _showCardInfos = _cardInfos;
+
+            // ユーザー入力情報があれば、表示するデータにコピーする
+            if (_userInputCardInfos != null)
+            {
+                foreach (var cardInfo in _showCardInfos)
+                {
+                    UserInputCardInfo userInputCardInfo = _userInputCardInfos.FirstOrDefault(
+                        s => s.id == cardInfo.id);
+                    if (userInputCardInfo != null)
+                    {
+                        cardInfo.draftPoint = userInputCardInfo.draftPoint;
+                    }
+                }
+            }
 
             // TODO: Windowsフォームによるフィルタ処理
             FilterByColor(ref _showCardInfos); // TODO: メンバ変数をパラメータ化する

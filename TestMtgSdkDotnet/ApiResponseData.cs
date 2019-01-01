@@ -177,6 +177,9 @@ namespace TestMtgSdkDotnet
                 return "";
             }
         }
+
+        // ユーザー入力情報とリンクしたとき使用する
+        public int draftPoint { get; set; }
     }
 
     public class ApiResponseData

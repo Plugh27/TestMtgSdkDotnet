@@ -19,24 +19,14 @@ namespace TestMtgSdkDotnet
             InitializeComponent();
         }
 
-        private string UserInputFileName = "UserInputCardInfo.json";
+
+        private CardInfo _targetCardInfo;
 
         private List<UserInputCardInfo> _userInputCardInfos;
-        private CardInfo _targetCardInfo;
 
 
         private void ViewUserInput_Load(object sender, EventArgs e)
         {
-            // ディスクからユーザー入力情報を取得する
-            if (File.Exists(UserInputFileName))
-            {
-                string jsonUserInputCardInfos = File.ReadAllText(UserInputFileName);
-                _userInputCardInfos = JsonConvert.DeserializeObject<List<UserInputCardInfo>>(jsonUserInputCardInfos);
-            }
-            else
-            {
-                _userInputCardInfos = new List<UserInputCardInfo>();
-            }
         }
 
         private void ViewUserInput_FormClosed(object sender, FormClosedEventArgs e)
@@ -58,6 +48,11 @@ namespace TestMtgSdkDotnet
                 return;
             }
 
+            if (_userInputCardInfos == null)
+            {
+                return;
+            }
+
             // ディスクに保存するデータの集合に、編集中のカードが無ければ追加する
             if (!_userInputCardInfos.Any(s => s.id == _targetCardInfo.id))
             {
@@ -73,9 +68,8 @@ namespace TestMtgSdkDotnet
             temp.memo = MemoTextBox.Text;
 
             // ユーザー入力情報をディスクに保存する
-            string jsonUserInputCardInfos = JsonConvert.SerializeObject(_userInputCardInfos, Formatting.Indented);
-            File.WriteAllText(UserInputFileName, jsonUserInputCardInfos);
-
+            // TODO: エラー処理必要かも
+            ((Form1)ParentForm).SaveUserInfo();
         }
 
         public void SelectCardInfo(List<CardInfo> cardInfos)
@@ -88,11 +82,34 @@ namespace TestMtgSdkDotnet
             // 処理対象のカード情報をメンバ変数で記憶する
             _targetCardInfo = cardInfos.First();
 
+            RefreshFormByMemberValue();
+        }
+
+        public void UpdateUserInput(List<UserInputCardInfo> userInputCardInfos)
+        {
+            _userInputCardInfos = userInputCardInfos;
+
+            // TODO: フォーム更新する
+            RefreshFormByMemberValue();
+        }
+
+        public void RefreshFormByMemberValue()
+        {
+            if (_userInputCardInfos == null)
+            {
+                return;
+            }
+
+            if (_targetCardInfo == null)
+            {
+                return;
+            }
+
             // カード名を設定する
             CardNameTextBox.Text = _targetCardInfo.japaneaseName + "／" + _targetCardInfo.name;
 
             // 処理対象のユーザー入力情報があればフォームに反映する
-            if(_userInputCardInfos.Any(s => s.id == _targetCardInfo.id))
+            if (_userInputCardInfos.Any(s => s.id == _targetCardInfo.id))
             {
                 UserInputCardInfo temp = _userInputCardInfos.First(s => s.id == _targetCardInfo.id);
                 DraftPointNumericUpDown.Value = temp.draftPoint;
@@ -104,6 +121,7 @@ namespace TestMtgSdkDotnet
                 DraftPointNumericUpDown.Value = 5;
                 MemoTextBox.Text = "";
             }
+
         }
     }
 }
