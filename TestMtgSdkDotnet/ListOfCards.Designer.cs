@@ -55,6 +55,8 @@
             this.InstantCheckBox = new System.Windows.Forms.CheckBox();
             this.PlaneswalkerCheckBox = new System.Windows.Forms.CheckBox();
             this.CreatureCheckBox = new System.Windows.Forms.CheckBox();
+            this.ItemCountLabel = new System.Windows.Forms.Label();
+            this.MultiCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.SoleListView)).BeginInit();
             this.CardListContextMenuStrip.SuspendLayout();
             this.ColorGroupBox.SuspendLayout();
@@ -146,6 +148,7 @@
             // 
             // ColorGroupBox
             // 
+            this.ColorGroupBox.Controls.Add(this.MultiCheckBox);
             this.ColorGroupBox.Controls.Add(this.ColorlessCheckBox);
             this.ColorGroupBox.Controls.Add(this.ColorEnableCheckBox);
             this.ColorGroupBox.Controls.Add(this.ColorOrRadioButton);
@@ -358,11 +361,31 @@
             this.CreatureCheckBox.UseVisualStyleBackColor = true;
             this.CreatureCheckBox.CheckedChanged += new System.EventHandler(this.TypeFilter_CheckedChanged);
             // 
+            // ItemCountLabel
+            // 
+            this.ItemCountLabel.AutoSize = true;
+            this.ItemCountLabel.Location = new System.Drawing.Point(547, 141);
+            this.ItemCountLabel.Name = "ItemCountLabel";
+            this.ItemCountLabel.Size = new System.Drawing.Size(41, 12);
+            this.ItemCountLabel.TabIndex = 9;
+            this.ItemCountLabel.Text = "項目数";
+            // 
+            // MultiCheckBox
+            // 
+            this.MultiCheckBox.AutoSize = true;
+            this.MultiCheckBox.Location = new System.Drawing.Point(216, 18);
+            this.MultiCheckBox.Name = "MultiCheckBox";
+            this.MultiCheckBox.Size = new System.Drawing.Size(36, 16);
+            this.MultiCheckBox.TabIndex = 10;
+            this.MultiCheckBox.Text = "金";
+            this.MultiCheckBox.UseVisualStyleBackColor = true;
+            // 
             // ListOfCards
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1140, 554);
+            this.Controls.Add(this.ItemCountLabel);
             this.Controls.Add(this.TypeGroupBox);
             this.Controls.Add(this.RarityGroupBox);
             this.Controls.Add(this.ColorGroupBox);
@@ -379,6 +402,7 @@
             this.TypeGroupBox.ResumeLayout(false);
             this.TypeGroupBox.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -410,5 +434,7 @@
         private System.Windows.Forms.CheckBox InstantCheckBox;
         private System.Windows.Forms.CheckBox PlaneswalkerCheckBox;
         private System.Windows.Forms.CheckBox CreatureCheckBox;
+        private System.Windows.Forms.Label ItemCountLabel;
+        private System.Windows.Forms.CheckBox MultiCheckBox;
     }
 }

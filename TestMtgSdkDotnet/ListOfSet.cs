@@ -13,7 +13,8 @@ namespace TestMtgSdkDotnet
 
         private void ListOfSet_Load(object sender, EventArgs e)
         {
-            SoleListBox.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+            // 右上のボタンを消す
+            ControlBox = false;
 
             SoleListBox.DisplayMember = "Name";
             SoleListBox.ValueMember = "Code";

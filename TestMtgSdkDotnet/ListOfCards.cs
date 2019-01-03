@@ -24,6 +24,10 @@ namespace TestMtgSdkDotnet
 
         private void ListOfCards_Load(object sender, EventArgs e)
         {
+            // 右上のボタンを消す
+            ControlBox = false;
+
+            // リストビューを四辺に連動させる
             SoleListView.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom;
 
             // リストビューはハイパーリンクを使用する
@@ -119,6 +123,8 @@ namespace TestMtgSdkDotnet
             FilterByRarity(ref _showCardInfos);
             FilterByType(ref _showCardInfos);
 
+            // 表示するアイテムの数を表示する
+            ItemCountLabel.Text = _showCardInfos.Count + @"/" + _cardInfos.Count;
 
             SoleListView.SetObjects(_showCardInfos);
         }
@@ -262,7 +268,8 @@ namespace TestMtgSdkDotnet
                     BlackCheckBox,
                     RedCheckBox,
                     GreenCheckBox,
-                    ColorlessCheckBox
+                    ColorlessCheckBox,
+                    MultiCheckBox,
                 };
 
             // 色のチェックボックスに対応するプロパティ名のリスト
@@ -274,6 +281,7 @@ namespace TestMtgSdkDotnet
                 typeof(CardInfo).GetProperty("isRed"),
                 typeof(CardInfo).GetProperty("isGreen"),
                 typeof(CardInfo).GetProperty("isColorless"),
+                typeof(CardInfo).GetProperty("isMultiColor")
             };
 
             // フィルタ対象の色のリスト

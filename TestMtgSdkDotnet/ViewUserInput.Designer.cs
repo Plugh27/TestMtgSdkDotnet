@@ -64,9 +64,11 @@
             // 
             // CardNameTextBox
             // 
+            this.CardNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CardNameTextBox.Location = new System.Drawing.Point(80, 6);
             this.CardNameTextBox.Name = "CardNameTextBox";
-            this.CardNameTextBox.Size = new System.Drawing.Size(220, 19);
+            this.CardNameTextBox.Size = new System.Drawing.Size(708, 19);
             this.CardNameTextBox.TabIndex = 3;
             // 
             // MemoTextBox

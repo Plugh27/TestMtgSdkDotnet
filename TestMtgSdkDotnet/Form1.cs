@@ -103,6 +103,8 @@ namespace TestMtgSdkDotnet
                 _childForms[i].Location = (Point)Properties.Settings.Default[_childFormPropertyNames[i] + "Location"];
                 _childForms[i].Size = (Size)Properties.Settings.Default[_childFormPropertyNames[i] + "Size"];
             }
+
+            InitializeData();
         }
 
         public void CallSelectSet(List<SetInfo> sets)
@@ -206,7 +208,7 @@ namespace TestMtgSdkDotnet
             return jsonCardInfo;
         }
 
-        private void StartInitializeSetInfoButton_Click(object sender, EventArgs e)
+        private void InitializeData()
         {
             // セット情報のJSONデータがディスクになければWebから取得する
             if (!File.Exists(officialSetInfoFileName))

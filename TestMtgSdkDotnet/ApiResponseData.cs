@@ -115,6 +115,24 @@ namespace TestMtgSdkDotnet
             }
         }
 
+        public bool isMultiColor
+        {
+            get
+            {
+                if (colors == null)
+                {
+                    return false;
+                }
+
+                if (colors.Count > 1)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
+
         public string colorsText
         {
             get

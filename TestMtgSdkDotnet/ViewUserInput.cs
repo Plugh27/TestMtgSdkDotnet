@@ -27,6 +27,8 @@ namespace TestMtgSdkDotnet
 
         private void ViewUserInput_Load(object sender, EventArgs e)
         {
+            // 右上のボタンを消す
+            ControlBox = false;
         }
 
         private void ViewUserInput_FormClosed(object sender, FormClosedEventArgs e)
@@ -58,7 +60,7 @@ namespace TestMtgSdkDotnet
             {
                 UserInputCardInfo userInputCardInfo = new UserInputCardInfo();
                 userInputCardInfo.id = _targetCardInfo.id;
-                userInputCardInfo.cardName = _targetCardInfo.japaneaseName + "／" + _targetCardInfo.name;
+                userInputCardInfo.cardName = _targetCardInfo.japaneaseName + "/" + _targetCardInfo.name;
                 _userInputCardInfos.Add(userInputCardInfo);
             }
 
@@ -105,8 +107,8 @@ namespace TestMtgSdkDotnet
                 return;
             }
 
-            // カード名を設定する
-            CardNameTextBox.Text = _targetCardInfo.japaneaseName + "／" + _targetCardInfo.name;
+            // カード名を設定する TODO: SaveUserInputと重複して宇r
+            CardNameTextBox.Text = _targetCardInfo.japaneaseName + "/" + _targetCardInfo.name;
 
             // 処理対象のユーザー入力情報があればフォームに反映する
             if (_userInputCardInfos.Any(s => s.id == _targetCardInfo.id))

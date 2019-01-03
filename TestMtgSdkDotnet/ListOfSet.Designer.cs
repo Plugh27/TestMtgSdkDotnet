@@ -33,12 +33,13 @@
             // 
             // SoleListBox
             // 
+            this.SoleListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SoleListBox.FormattingEnabled = true;
             this.SoleListBox.ItemHeight = 12;
-            this.SoleListBox.Location = new System.Drawing.Point(12, 13);
+            this.SoleListBox.Location = new System.Drawing.Point(0, 0);
             this.SoleListBox.Name = "SoleListBox";
             this.SoleListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.SoleListBox.Size = new System.Drawing.Size(776, 424);
+            this.SoleListBox.Size = new System.Drawing.Size(800, 450);
             this.SoleListBox.TabIndex = 0;
             this.SoleListBox.SelectedIndexChanged += new System.EventHandler(this.SoleListBox_SelectedIndexChanged);
             // 

@@ -34,7 +34,8 @@ namespace TestMtgSdkDotnet
 
         private void ListOfImages_Load(object sender, EventArgs e)
         {
-
+            // 右上のボタンを消す
+            ControlBox = false;
         }
 
         private void CopyToClipboardToolStripMenuItem_Click(object sender, EventArgs e)

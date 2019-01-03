@@ -51,7 +51,8 @@ namespace TestMtgSdkDotnet
 
         private void ViewImage_Load(object sender, EventArgs e)
         {
-
+            // 右上のボタンを消す
+            ControlBox = false;
         }
     }
 }
