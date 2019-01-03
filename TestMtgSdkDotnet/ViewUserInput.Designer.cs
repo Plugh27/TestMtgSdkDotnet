@@ -60,7 +60,7 @@
             this.DraftPointNumericUpDown.Location = new System.Drawing.Point(80, 35);
             this.DraftPointNumericUpDown.Name = "DraftPointNumericUpDown";
             this.DraftPointNumericUpDown.Size = new System.Drawing.Size(120, 19);
-            this.DraftPointNumericUpDown.TabIndex = 2;
+            this.DraftPointNumericUpDown.TabIndex = 1;
             // 
             // CardNameTextBox
             // 
@@ -69,7 +69,7 @@
             this.CardNameTextBox.Location = new System.Drawing.Point(80, 6);
             this.CardNameTextBox.Name = "CardNameTextBox";
             this.CardNameTextBox.Size = new System.Drawing.Size(708, 19);
-            this.CardNameTextBox.TabIndex = 3;
+            this.CardNameTextBox.TabIndex = 0;
             // 
             // MemoTextBox
             // 
@@ -80,7 +80,7 @@
             this.MemoTextBox.Multiline = true;
             this.MemoTextBox.Name = "MemoTextBox";
             this.MemoTextBox.Size = new System.Drawing.Size(708, 311);
-            this.MemoTextBox.TabIndex = 4;
+            this.MemoTextBox.TabIndex = 2;
             // 
             // MemoLabel
             // 
