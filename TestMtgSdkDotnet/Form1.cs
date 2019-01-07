@@ -53,6 +53,8 @@ namespace TestMtgSdkDotnet
         private string officialCardInfoFileNameFormat = "OfficialCardInfo_{0}.json";
         private string UserInputFileName = "UserInputCardInfo.json";
 
+        // "https://api.scryfall.com/cards/search?order=set&q=e%3Agrn&unique=prints&include_multilingual=true"
+        private string ScryfallSetFormat = "https://api.scryfall.com/cards/search?order=set&q=e%3A{0}&unique=prints&include_multilingual=true";
 
         private void Form1_Load(object sender, EventArgs e)
         {
