@@ -23,7 +23,7 @@ namespace TestMtgSdkDotnet
         public void UpdateSet(List<SetInfo> sets)
         {
             // 特定のセットを先頭に移動させる
-            List<string> codes = new List<string>() {"XLN", "RIX", "DOM", "M19", "GRN"};
+            List<string> codes = new List<string>() { "XLN", "RIX", "DOM", "M19", "GRN" };
             foreach (var code in codes)
             {
                 int i = sets.FindIndex(0, s => s.code == code);

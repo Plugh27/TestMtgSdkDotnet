@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 
 // JSONの要素に対応させるので、命名規則のチェックを切る
 // ReSharper disable InconsistentNaming
@@ -17,7 +18,7 @@ namespace TestMtgSdkDotnet
 
     public class CardInfo
     {
-        public const string Japanease = "Japanese";
+        public const string Japanese = "Japanese";
 
         public string name { get; set; }
         public List<string> names { get; set; }
@@ -35,8 +36,7 @@ namespace TestMtgSdkDotnet
 
         public string id { get; set; }
 
-        // TODO: 5色の定数化
-
+        [JsonIgnore]
         public bool isWhite
         {
             get
@@ -50,6 +50,7 @@ namespace TestMtgSdkDotnet
             }
         }
 
+        [JsonIgnore]
         public bool isBlue
         {
             get
@@ -63,6 +64,7 @@ namespace TestMtgSdkDotnet
             }
         }
 
+        [JsonIgnore]
         public bool isBlack
         {
             get
@@ -76,6 +78,7 @@ namespace TestMtgSdkDotnet
             }
         }
 
+        [JsonIgnore]
         public bool isRed
         {
             get
@@ -89,6 +92,7 @@ namespace TestMtgSdkDotnet
             }
         }
 
+        [JsonIgnore]
         public bool isGreen
         {
             get
@@ -102,6 +106,7 @@ namespace TestMtgSdkDotnet
             }
         }
 
+        [JsonIgnore]
         public bool isColorless
         {
             get
@@ -115,6 +120,7 @@ namespace TestMtgSdkDotnet
             }
         }
 
+        [JsonIgnore]
         public bool isMultiColor
         {
             get
@@ -133,6 +139,7 @@ namespace TestMtgSdkDotnet
             }
         }
 
+        [JsonIgnore]
         public string colorsText
         {
             get
@@ -154,6 +161,7 @@ namespace TestMtgSdkDotnet
 
         // TODO: ↓2つの処理、LINQでまとめる
 
+        [JsonIgnore]
         public int japaneaseMultiverseId
         {
             get
@@ -165,7 +173,7 @@ namespace TestMtgSdkDotnet
 
                 foreach (var foreignName in foreignNames)
                 {
-                    if (foreignName.language == Japanease)
+                    if (foreignName.language == Japanese)
                     {
                         return foreignName.multiverseid;
                     }
@@ -175,6 +183,7 @@ namespace TestMtgSdkDotnet
             }
         }
 
+        [JsonIgnore]
         public string japaneaseName
         {
             get
@@ -186,7 +195,7 @@ namespace TestMtgSdkDotnet
 
                 foreach (var foreignName in foreignNames)
                 {
-                    if (foreignName.language == Japanease)
+                    if (foreignName.language == Japanese)
                     {
                         return foreignName.name;
                     }
@@ -197,6 +206,7 @@ namespace TestMtgSdkDotnet
         }
 
         // ユーザー入力情報とリンクしたとき使用する
+        [JsonIgnore]
         public int draftPoint { get; set; }
     }
 

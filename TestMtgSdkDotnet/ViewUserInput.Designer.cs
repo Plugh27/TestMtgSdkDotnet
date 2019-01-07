@@ -61,6 +61,7 @@
             this.DraftPointNumericUpDown.Name = "DraftPointNumericUpDown";
             this.DraftPointNumericUpDown.Size = new System.Drawing.Size(120, 19);
             this.DraftPointNumericUpDown.TabIndex = 1;
+            this.DraftPointNumericUpDown.ValueChanged += new System.EventHandler(this.DraftPointNumericUpDown_ValueChanged);
             // 
             // CardNameTextBox
             // 
@@ -81,6 +82,7 @@
             this.MemoTextBox.Name = "MemoTextBox";
             this.MemoTextBox.Size = new System.Drawing.Size(708, 311);
             this.MemoTextBox.TabIndex = 2;
+            this.MemoTextBox.TextChanged += new System.EventHandler(this.MemoTextBox_TextChanged);
             // 
             // MemoLabel
             // 

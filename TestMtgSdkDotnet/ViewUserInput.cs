@@ -1,13 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TestMtgSdkDotnet
@@ -19,11 +12,11 @@ namespace TestMtgSdkDotnet
             InitializeComponent();
         }
 
-
         private CardInfo _targetCardInfo;
 
         private List<UserInputCardInfo> _userInputCardInfos;
 
+        private bool _isChanged;
 
         private void ViewUserInput_Load(object sender, EventArgs e)
         {
@@ -34,13 +27,11 @@ namespace TestMtgSdkDotnet
         private void ViewUserInput_FormClosed(object sender, FormClosedEventArgs e)
         {
             SaveUserInput();
-
         }
 
         private void ViewUserInput_Leave(object sender, EventArgs e)
         {
             SaveUserInput();
-
         }
 
         private void SaveUserInput()
@@ -55,8 +46,13 @@ namespace TestMtgSdkDotnet
                 return;
             }
 
+            if (!_isChanged)
+            {
+                return;
+            }
+
             // ディスクに保存するデータの集合に、編集中のカードが無ければ追加する
-            if (!_userInputCardInfos.Any(s => s.id == _targetCardInfo.id))
+            if (_userInputCardInfos.All(s => s.id != _targetCardInfo.id))
             {
                 UserInputCardInfo userInputCardInfo = new UserInputCardInfo();
                 userInputCardInfo.id = _targetCardInfo.id;
@@ -107,6 +103,8 @@ namespace TestMtgSdkDotnet
                 return;
             }
 
+            _isChanged = false;
+
             // カード名を設定する TODO: SaveUserInputと重複して宇r
             CardNameTextBox.Text = _targetCardInfo.japaneaseName + "/" + _targetCardInfo.name;
 
@@ -117,13 +115,16 @@ namespace TestMtgSdkDotnet
                 DraftPointNumericUpDown.Value = temp.draftPoint;
                 MemoTextBox.Text = temp.memo;
             }
-            else
-            {
-                // 入力情報がなければ適当な初期値を設定する
-                DraftPointNumericUpDown.Value = 5;
-                MemoTextBox.Text = "";
-            }
+        }
 
+        private void DraftPointNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            _isChanged = true;
+        }
+
+        private void MemoTextBox_TextChanged(object sender, EventArgs e)
+        {
+            _isChanged = true;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Windows.Forms;
 using Newtonsoft.Json;
@@ -210,20 +211,26 @@ namespace TestMtgSdkDotnet
 
         private void InitializeData()
         {
-            // セット情報のJSONデータがディスクになければWebから取得する
+            // セット情報のJSONデータがディスクになければWebから取得してファイルに書き出す
             if (!File.Exists(officialSetInfoFileName))
             {
                 string json = GetSetInfo();
-                File.WriteAllText(officialSetInfoFileName, json);
+                DataOfGetAllSets tempObject = JsonConvert.DeserializeObject<DataOfGetAllSets>(json);
+
+                string serializedJson = JsonConvert.SerializeObject(tempObject, Formatting.Indented);
+                File.WriteAllText(officialSetInfoFileName, serializedJson);
             }
 
             // セット情報をディスクから取得する
+            DataOfGetAllSets dataOfGetAllSets;
             string jsonOfGetAllSets = File.ReadAllText(officialSetInfoFileName);
-            DataOfGetAllSets dataOfGetAllSets = JsonConvert.DeserializeObject<DataOfGetAllSets>(jsonOfGetAllSets);
+            dataOfGetAllSets = JsonConvert.DeserializeObject<DataOfGetAllSets>(jsonOfGetAllSets);
+
+            // セット情報をリリース順に並べる
+            dataOfGetAllSets.sets = dataOfGetAllSets.sets.OrderByDescending(s => s.releaseDate).ToList();
 
             // イベント発生させる
             _updateSetInfo(dataOfGetAllSets.sets);
-
 
             // ディスクからユーザー入力情報を取得する
             if (File.Exists(UserInputFileName))

@@ -122,11 +122,42 @@ namespace TestMtgSdkDotnet
             FilterByColor(ref _showCardInfos); // TODO: メンバ変数をパラメータ化する
             FilterByRarity(ref _showCardInfos);
             FilterByType(ref _showCardInfos);
+            FilterByCardName(ref _showCardInfos);
 
             // 表示するアイテムの数を表示する
             ItemCountLabel.Text = _showCardInfos.Count + @"/" + _cardInfos.Count;
 
             SoleListView.SetObjects(_showCardInfos);
+        }
+
+        private void FilterByCardName(ref List<CardInfo> cardInfos)
+        {
+            // テキストボックスが空なら処理しない
+            if (CardNameTextBox.Text == "")
+            {
+                return;
+            }
+
+            // 文字が入力されていたら、一致する部分があるCardInfoのみ残す
+            List<CardInfo> filterdCardInfos = new List<CardInfo>();
+            foreach (var cardInfo in cardInfos)
+            {
+                // 英語名と部分一致していたら有効
+                if (cardInfo.name.IndexOf(CardNameTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    filterdCardInfos.Add(cardInfo);
+                    continue;
+                }
+
+                // 日本語名と部分一致していたら有効
+                if (cardInfo.japaneaseName.IndexOf(CardNameTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    filterdCardInfos.Add(cardInfo);
+                    continue;
+                }
+            }
+
+            cardInfos = filterdCardInfos;
         }
 
         private void FilterByType(ref List<CardInfo> cardInfos)
@@ -382,6 +413,17 @@ namespace TestMtgSdkDotnet
 
         private void TypeFilter_CheckedChanged(object sender, EventArgs e)
         {
+            MakeSoleList();
+        }
+
+        private void CardNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+            MakeSoleList();
+        }
+
+        private void ClearCardNameButton_Click(object sender, EventArgs e)
+        {
+            CardNameTextBox.Text = "";
             MakeSoleList();
         }
     }

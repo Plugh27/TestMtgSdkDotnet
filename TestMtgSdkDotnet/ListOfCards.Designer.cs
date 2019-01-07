@@ -38,6 +38,7 @@
             this.RedCheckBox = new System.Windows.Forms.CheckBox();
             this.GreenCheckBox = new System.Windows.Forms.CheckBox();
             this.ColorGroupBox = new System.Windows.Forms.GroupBox();
+            this.MultiCheckBox = new System.Windows.Forms.CheckBox();
             this.ColorlessCheckBox = new System.Windows.Forms.CheckBox();
             this.ColorEnableCheckBox = new System.Windows.Forms.CheckBox();
             this.ColorOrRadioButton = new System.Windows.Forms.RadioButton();
@@ -56,7 +57,9 @@
             this.PlaneswalkerCheckBox = new System.Windows.Forms.CheckBox();
             this.CreatureCheckBox = new System.Windows.Forms.CheckBox();
             this.ItemCountLabel = new System.Windows.Forms.Label();
-            this.MultiCheckBox = new System.Windows.Forms.CheckBox();
+            this.CardNameLabel = new System.Windows.Forms.Label();
+            this.CardNameTextBox = new System.Windows.Forms.TextBox();
+            this.ClearCardNameButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.SoleListView)).BeginInit();
             this.CardListContextMenuStrip.SuspendLayout();
             this.ColorGroupBox.SuspendLayout();
@@ -69,9 +72,9 @@
             this.SoleListView.CellEditUseWholeCell = false;
             this.SoleListView.ContextMenuStrip = this.CardListContextMenuStrip;
             this.SoleListView.Cursor = System.Windows.Forms.Cursors.Default;
-            this.SoleListView.Location = new System.Drawing.Point(12, 159);
+            this.SoleListView.Location = new System.Drawing.Point(12, 184);
             this.SoleListView.Name = "SoleListView";
-            this.SoleListView.Size = new System.Drawing.Size(1116, 383);
+            this.SoleListView.Size = new System.Drawing.Size(1116, 358);
             this.SoleListView.TabIndex = 0;
             this.SoleListView.UseCompatibleStateImageBehavior = false;
             this.SoleListView.View = System.Windows.Forms.View.Details;
@@ -164,6 +167,16 @@
             this.ColorGroupBox.TabIndex = 6;
             this.ColorGroupBox.TabStop = false;
             this.ColorGroupBox.Text = "色でフィルタ";
+            // 
+            // MultiCheckBox
+            // 
+            this.MultiCheckBox.AutoSize = true;
+            this.MultiCheckBox.Location = new System.Drawing.Point(216, 18);
+            this.MultiCheckBox.Name = "MultiCheckBox";
+            this.MultiCheckBox.Size = new System.Drawing.Size(36, 16);
+            this.MultiCheckBox.TabIndex = 10;
+            this.MultiCheckBox.Text = "金";
+            this.MultiCheckBox.UseVisualStyleBackColor = true;
             // 
             // ColorlessCheckBox
             // 
@@ -364,27 +377,47 @@
             // ItemCountLabel
             // 
             this.ItemCountLabel.AutoSize = true;
-            this.ItemCountLabel.Location = new System.Drawing.Point(547, 141);
+            this.ItemCountLabel.Location = new System.Drawing.Point(12, 162);
             this.ItemCountLabel.Name = "ItemCountLabel";
             this.ItemCountLabel.Size = new System.Drawing.Size(41, 12);
             this.ItemCountLabel.TabIndex = 9;
             this.ItemCountLabel.Text = "項目数";
             // 
-            // MultiCheckBox
+            // CardNameLabel
             // 
-            this.MultiCheckBox.AutoSize = true;
-            this.MultiCheckBox.Location = new System.Drawing.Point(216, 18);
-            this.MultiCheckBox.Name = "MultiCheckBox";
-            this.MultiCheckBox.Size = new System.Drawing.Size(36, 16);
-            this.MultiCheckBox.TabIndex = 10;
-            this.MultiCheckBox.Text = "金";
-            this.MultiCheckBox.UseVisualStyleBackColor = true;
+            this.CardNameLabel.AutoSize = true;
+            this.CardNameLabel.Location = new System.Drawing.Point(92, 162);
+            this.CardNameLabel.Name = "CardNameLabel";
+            this.CardNameLabel.Size = new System.Drawing.Size(88, 12);
+            this.CardNameLabel.TabIndex = 10;
+            this.CardNameLabel.Text = "カード名でフィルタ";
+            // 
+            // CardNameTextBox
+            // 
+            this.CardNameTextBox.Location = new System.Drawing.Point(186, 159);
+            this.CardNameTextBox.Name = "CardNameTextBox";
+            this.CardNameTextBox.Size = new System.Drawing.Size(330, 19);
+            this.CardNameTextBox.TabIndex = 11;
+            this.CardNameTextBox.TextChanged += new System.EventHandler(this.CardNameTextBox_TextChanged);
+            // 
+            // ClearCardNameButton
+            // 
+            this.ClearCardNameButton.Location = new System.Drawing.Point(522, 159);
+            this.ClearCardNameButton.Name = "ClearCardNameButton";
+            this.ClearCardNameButton.Size = new System.Drawing.Size(19, 19);
+            this.ClearCardNameButton.TabIndex = 12;
+            this.ClearCardNameButton.Text = "×";
+            this.ClearCardNameButton.UseVisualStyleBackColor = true;
+            this.ClearCardNameButton.Click += new System.EventHandler(this.ClearCardNameButton_Click);
             // 
             // ListOfCards
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1140, 554);
+            this.Controls.Add(this.ClearCardNameButton);
+            this.Controls.Add(this.CardNameTextBox);
+            this.Controls.Add(this.CardNameLabel);
             this.Controls.Add(this.ItemCountLabel);
             this.Controls.Add(this.TypeGroupBox);
             this.Controls.Add(this.RarityGroupBox);
@@ -436,5 +469,8 @@
         private System.Windows.Forms.CheckBox CreatureCheckBox;
         private System.Windows.Forms.Label ItemCountLabel;
         private System.Windows.Forms.CheckBox MultiCheckBox;
+        private System.Windows.Forms.Label CardNameLabel;
+        private System.Windows.Forms.TextBox CardNameTextBox;
+        private System.Windows.Forms.Button ClearCardNameButton;
     }
 }
