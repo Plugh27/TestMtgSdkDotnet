@@ -115,6 +115,12 @@ namespace TestMtgSdkDotnet
                 DraftPointNumericUpDown.Value = temp.draftPoint;
                 MemoTextBox.Text = temp.memo;
             }
+            else
+            {
+                // なければ初期値にする
+                DraftPointNumericUpDown.Value = 0;
+                MemoTextBox.Text = "";
+            }
         }
 
         private void DraftPointNumericUpDown_ValueChanged(object sender, EventArgs e)
