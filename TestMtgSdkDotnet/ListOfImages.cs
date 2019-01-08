@@ -17,9 +17,6 @@ namespace TestMtgSdkDotnet
             InitializeComponent();
         }
 
-        // TODO: カスタマイズ可能にするか？
-
-
         public void SelectCard(List<CardInfo> cardInfos)
         {
             if (cardInfos.Count == 0)

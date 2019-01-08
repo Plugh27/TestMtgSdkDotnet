@@ -142,5 +142,29 @@ namespace TestMtgSdkDotnet.Properties {
                 this["ViewImageSize"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("50, 50")]
+        public global::System.Drawing.Point ViewTextLocation {
+            get {
+                return ((global::System.Drawing.Point)(this["ViewTextLocation"]));
+            }
+            set {
+                this["ViewTextLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100, 200")]
+        public global::System.Drawing.Size ViewTextSize {
+            get {
+                return ((global::System.Drawing.Size)(this["ViewTextSize"]));
+            }
+            set {
+                this["ViewTextSize"] = value;
+            }
+        }
     }
 }

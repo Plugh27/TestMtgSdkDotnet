@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
@@ -16,7 +17,7 @@ namespace TestMtgSdkDotnet
     delegate void SelectSetInfo(List<SetInfo> sets);
 
     // カード情報が更新された時の処理
-    delegate void UpdateCardInfo(List<CardInfo> cardInfos);
+    delegate void UpdateCardInfo(List<CardInfo> cardInfos, List<ScryfallCardInfo> scryfallCardInfos);
 
     // カード情報が選択された時の処理
     delegate void SelectCardInfo(List<CardInfo> cardInfos);
@@ -36,6 +37,7 @@ namespace TestMtgSdkDotnet
         private ListOfImages _listOfImages;
         private ViewUserInput _viewUserInput;
         private ViewImage _viewImage;
+        private ViewText _viewText;
 
         private List<Form> _childForms;
         private List<string> _childFormPropertyNames;
@@ -47,14 +49,10 @@ namespace TestMtgSdkDotnet
         private UpdateUserInput _updateUserInput;
 
         private List<CardInfo> _cardInfos;
+        private List<ScryfallCardInfo> _scryfallCardInfos;
         private List<UserInputCardInfo> _userInputCardInfos;
 
-        private string officialSetInfoFileName = "OfficialSetInfo.json";
-        private string officialCardInfoFileNameFormat = "OfficialCardInfo_{0}.json";
         private string UserInputFileName = "UserInputCardInfo.json";
-
-        // "https://api.scryfall.com/cards/search?order=set&q=e%3Agrn&unique=prints&include_multilingual=true"
-        private string ScryfallSetFormat = "https://api.scryfall.com/cards/search?order=set&q=e%3A{0}&unique=prints&include_multilingual=true";
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -64,6 +62,7 @@ namespace TestMtgSdkDotnet
             _listOfImages = new ListOfImages();
             _viewUserInput = new ViewUserInput();
             _viewImage = new ViewImage();
+            _viewText = new ViewText();
 
             _childForms = new List<Form>()
             {
@@ -71,7 +70,8 @@ namespace TestMtgSdkDotnet
                 _listOfCards,
                 _listOfImages,
                 _viewUserInput,
-                _viewImage
+                _viewImage,
+                _viewText
             };
 
             _childFormPropertyNames = new List<string>()
@@ -80,7 +80,8 @@ namespace TestMtgSdkDotnet
                 "ListOfCards",
                 "ListOfImages",
                 "ViewUserInput",
-                "ViewImage"
+                "ViewImage",
+                "ViewText"
             };
 
             // 子フォームを表示する
@@ -92,11 +93,17 @@ namespace TestMtgSdkDotnet
 
             // 本クラスが持つデリゲートの設定
             _updateSetInfo += _listOfSet.UpdateSet;
+
             _selectSetInfo += SelectSet;
+
             _updateCardInfo += _listOfCards.UpdateCardInfo;
+            _updateCardInfo += _viewText.UpdateCardInfo;
+
             _selectCardInfo += _listOfImages.SelectCard;
             _selectCardInfo += _viewUserInput.SelectCardInfo;
             _selectCardInfo += _viewImage.SelectCardInfo;
+            _selectCardInfo += _viewText.SelectCardInfo;
+
             _updateUserInput += _viewUserInput.UpdateUserInput;
             _updateUserInput += _listOfCards.UpdateUserInput;
 
@@ -129,39 +136,18 @@ namespace TestMtgSdkDotnet
 
         private void SelectSet(List<SetInfo> sets)
         {
+            // オフィシャルとScryfallから、選択されているセットのカード情報を取得する
             _cardInfos = new List<CardInfo>();
+            _scryfallCardInfos = new List<ScryfallCardInfo>();
             foreach (var setInfo in sets)
             {
-                // ディスクにデータがあるかチェックして、なければネットから取得する
-                string oneSetCardInfosFileName = string.Format(officialCardInfoFileNameFormat, setInfo.code);
-                if (!File.Exists(oneSetCardInfosFileName))
-                {
-                    List<CardInfo> oneSetCardInfos = new List<CardInfo>();
-                    for (int page = 1; page < 10; page++)
-                    {
-                        string jsonCardInfo = GetCardInfo(page, setInfo.code);
-                        ApiResponseData apiResponseData = JsonConvert.DeserializeObject<ApiResponseData>(jsonCardInfo);
-                        if (apiResponseData.cards.Count == 0)
-                        {
-                            break;
-                        }
+                _cardInfos.AddRange(RestUtil.CheckOfficialData(setInfo.code));
 
-                        oneSetCardInfos.AddRange(apiResponseData.cards);
-                    }
-
-                    // 取得したデータをディスクに保存する
-                    string jsonOneSetCardInfos = JsonConvert.SerializeObject(oneSetCardInfos, Formatting.Indented);
-                    File.WriteAllText(oneSetCardInfosFileName, jsonOneSetCardInfos);
-                }
-
-                // ディスクのデータをドットネットのデータ型に変換する
-                _cardInfos.AddRange(
-                    JsonConvert.DeserializeObject<List<CardInfo>>(File.ReadAllText(oneSetCardInfosFileName)));
-
+                _scryfallCardInfos.AddRange(RestUtil.CheckScryfallData(setInfo.code));
             }
 
             // イベント発生させる
-            _updateCardInfo(_cardInfos);
+            _updateCardInfo(_cardInfos, _scryfallCardInfos);
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -176,57 +162,9 @@ namespace TestMtgSdkDotnet
             Properties.Settings.Default.Save();
         }
 
-        public static string GetSetInfo()
-        {
-            string url = "https://api.magicthegathering.io/v1/sets";
-
-            WebClient wc = new WebClient();
-
-            Stream st = wc.OpenRead(url);
-            StreamReader sr = new StreamReader(st ?? throw new InvalidOperationException());
-
-            string jsonCardSetInfo = sr.ReadToEnd();
-
-            sr.Close();
-            st.Close();
-
-            return jsonCardSetInfo;
-        }
-
-        public static string GetCardInfo(int page, string setName)
-        {
-            // TODO: GetSetInfoと合わせて定数値にする
-            string url = "https://api.magicthegathering.io/v1/cards?page=" + page + "&set=" + setName;
-
-            WebClient wc = new WebClient();
-
-            Stream st = wc.OpenRead(url);
-            StreamReader sr = new StreamReader(st ?? throw new InvalidOperationException());
-
-            string jsonCardInfo = sr.ReadToEnd();
-
-            sr.Close();
-            st.Close();
-
-            return jsonCardInfo;
-        }
-
         private void InitializeData()
         {
-            // セット情報のJSONデータがディスクになければWebから取得してファイルに書き出す
-            if (!File.Exists(officialSetInfoFileName))
-            {
-                string json = GetSetInfo();
-                DataOfGetAllSets tempObject = JsonConvert.DeserializeObject<DataOfGetAllSets>(json);
-
-                string serializedJson = JsonConvert.SerializeObject(tempObject, Formatting.Indented);
-                File.WriteAllText(officialSetInfoFileName, serializedJson);
-            }
-
-            // セット情報をディスクから取得する
-            DataOfGetAllSets dataOfGetAllSets;
-            string jsonOfGetAllSets = File.ReadAllText(officialSetInfoFileName);
-            dataOfGetAllSets = JsonConvert.DeserializeObject<DataOfGetAllSets>(jsonOfGetAllSets);
+            DataOfGetAllSets dataOfGetAllSets = RestUtil.CheckOfficialSetData();
 
             // セット情報をリリース順に並べる
             dataOfGetAllSets.sets = dataOfGetAllSets.sets.OrderByDescending(s => s.releaseDate).ToList();

@@ -60,6 +60,7 @@
             this.CardNameLabel = new System.Windows.Forms.Label();
             this.CardNameTextBox = new System.Windows.Forms.TextBox();
             this.ClearCardNameButton = new System.Windows.Forms.Button();
+            this.LandCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.SoleListView)).BeginInit();
             this.CardListContextMenuStrip.SuspendLayout();
             this.ColorGroupBox.SuspendLayout();
@@ -151,6 +152,7 @@
             // 
             // ColorGroupBox
             // 
+            this.ColorGroupBox.Controls.Add(this.LandCheckBox);
             this.ColorGroupBox.Controls.Add(this.MultiCheckBox);
             this.ColorGroupBox.Controls.Add(this.ColorlessCheckBox);
             this.ColorGroupBox.Controls.Add(this.ColorEnableCheckBox);
@@ -410,6 +412,17 @@
             this.ClearCardNameButton.UseVisualStyleBackColor = true;
             this.ClearCardNameButton.Click += new System.EventHandler(this.ClearCardNameButton_Click);
             // 
+            // LandCheckBox
+            // 
+            this.LandCheckBox.AutoSize = true;
+            this.LandCheckBox.Location = new System.Drawing.Point(174, 18);
+            this.LandCheckBox.Name = "LandCheckBox";
+            this.LandCheckBox.Size = new System.Drawing.Size(36, 16);
+            this.LandCheckBox.TabIndex = 11;
+            this.LandCheckBox.Text = "土";
+            this.LandCheckBox.UseVisualStyleBackColor = true;
+            this.LandCheckBox.CheckedChanged += new System.EventHandler(this.ColorFilter_CheckedChanged);
+            // 
             // ListOfCards
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -472,5 +485,6 @@
         private System.Windows.Forms.Label CardNameLabel;
         private System.Windows.Forms.TextBox CardNameTextBox;
         private System.Windows.Forms.Button ClearCardNameButton;
+        private System.Windows.Forms.CheckBox LandCheckBox;
     }
 }

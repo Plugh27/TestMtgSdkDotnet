@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
@@ -13,7 +14,7 @@ namespace TestMtgSdkDotnet
     {
         public string name { get; set; }
         public string language { get; set; }
-        public int multiverseid { get; set; }
+        public int? multiverseid { get; set; }
     }
 
     public class CardInfo
@@ -23,7 +24,7 @@ namespace TestMtgSdkDotnet
         public string name { get; set; }
         public List<string> names { get; set; }
         public string manaCost { get; set; }
-        public int cmc;
+        public string cmc { get; set; }
         public List<string> colors { get; set; }
         public List<string> types { get; set; }
         public string rarity { get; set; }
@@ -35,6 +36,25 @@ namespace TestMtgSdkDotnet
         public List<ForeignNames> foreignNames { get; set; }
 
         public string id { get; set; }
+
+        [JsonIgnore]
+        public bool isLand
+        {
+            get
+            {
+                if (types == null)
+                {
+                    return false;
+                }
+
+                if (types.Contains("Land"))
+                {
+                    return true;
+                }
+
+                return false;
+            }
+        }
 
         [JsonIgnore]
         public bool isWhite
@@ -175,7 +195,14 @@ namespace TestMtgSdkDotnet
                 {
                     if (foreignName.language == Japanese)
                     {
-                        return foreignName.multiverseid;
+                        if (foreignName.multiverseid == null)
+                        {
+                            return 0;
+                        }
+                        else
+                        {
+                            return (int)foreignName.multiverseid;
+                        }
                     }
                 }
 

@@ -80,7 +80,7 @@ namespace TestMtgSdkDotnet
             e.Handled = true;
         }
 
-        public void UpdateCardInfo(List<CardInfo> cardInfos)
+        public void UpdateCardInfo(List<CardInfo> cardInfos, List<ScryfallCardInfo> scryfallCardInfos)
         {
             _cardInfos = cardInfos;
 
@@ -301,6 +301,7 @@ namespace TestMtgSdkDotnet
                     GreenCheckBox,
                     ColorlessCheckBox,
                     MultiCheckBox,
+                    LandCheckBox
                 };
 
             // 色のチェックボックスに対応するプロパティ名のリスト
@@ -312,7 +313,8 @@ namespace TestMtgSdkDotnet
                 typeof(CardInfo).GetProperty("isRed"),
                 typeof(CardInfo).GetProperty("isGreen"),
                 typeof(CardInfo).GetProperty("isColorless"),
-                typeof(CardInfo).GetProperty("isMultiColor")
+                typeof(CardInfo).GetProperty("isMultiColor"),
+                typeof(CardInfo).GetProperty("isLand")
             };
 
             // フィルタ対象の色のリスト

@@ -32,5 +32,11 @@
     <Setting Name="ViewImageSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">100, 200</Value>
     </Setting>
+    <Setting Name="ViewTextLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">50, 50</Value>
+    </Setting>
+    <Setting Name="ViewTextSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">100, 200</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

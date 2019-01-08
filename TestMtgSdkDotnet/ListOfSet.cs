@@ -11,6 +11,8 @@ namespace TestMtgSdkDotnet
             InitializeComponent();
         }
 
+        private List<SetInfo> _showSetInfos;
+
         private void ListOfSet_Load(object sender, EventArgs e)
         {
             // 右上のボタンを消す
@@ -22,17 +24,26 @@ namespace TestMtgSdkDotnet
 
         public void UpdateSet(List<SetInfo> sets)
         {
-            // 特定のセットを先頭に移動させる
-            List<string> codes = new List<string>() { "XLN", "RIX", "DOM", "M19", "GRN" };
-            foreach (var code in codes)
+            _showSetInfos = new List<SetInfo>();
+            foreach (var setInfo in sets)
             {
-                int i = sets.FindIndex(0, s => s.code == code);
-                SetInfo set = sets[i];
-                sets.RemoveAt(i);
-                sets.Insert(0, set);
+                if (setInfo.type == "core" || setInfo.type == "expansion")
+                {
+                    _showSetInfos.Add(setInfo);
+                }
             }
 
-            SoleListBox.DataSource = sets;
+            //// 特定のセットを先頭に移動させる
+            //List<string> codes = new List<string>() { "XLN", "RIX", "DOM", "M19", "GRN" };
+            //foreach (var code in codes)
+            //{
+            //    int i = sets.FindIndex(0, s => s.code == code);
+            //    SetInfo set = sets[i];
+            //    sets.RemoveAt(i);
+            //    sets.Insert(0, set);
+            //}
+
+            SoleListBox.DataSource = _showSetInfos;
         }
 
         private void SoleListBox_SelectedIndexChanged(object sender, EventArgs e)
