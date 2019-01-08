@@ -392,14 +392,9 @@ namespace TestMtgSdkDotnet
                 selectedCardInfos.Add((CardInfo)item);
             }
 
-            string urlFormat = "http://mtgwiki.com/wiki/{0}/{1}";
             foreach (var cardInfo in selectedCardInfos)
             {
-                string japaneaseCardName = cardInfo.japaneaseName;
-                string cardName = cardInfo.name;
-                cardName = cardName.Replace(" ", "_");
-
-                System.Diagnostics.Process.Start(string.Format(urlFormat, japaneaseCardName, cardName));
+                System.Diagnostics.Process.Start(Util.MtgwikiUrl(cardInfo));
             }
         }
 

@@ -38,6 +38,7 @@ namespace TestMtgSdkDotnet
         private ViewUserInput _viewUserInput;
         private ViewImage _viewImage;
         private ViewText _viewText;
+        private ViewMtgwiki _viewMtgwiki;
 
         private List<Form> _childForms;
         private List<string> _childFormPropertyNames;
@@ -63,6 +64,7 @@ namespace TestMtgSdkDotnet
             _viewUserInput = new ViewUserInput();
             _viewImage = new ViewImage();
             _viewText = new ViewText();
+            _viewMtgwiki = new ViewMtgwiki();
 
             _childForms = new List<Form>()
             {
@@ -71,7 +73,8 @@ namespace TestMtgSdkDotnet
                 _listOfImages,
                 _viewUserInput,
                 _viewImage,
-                _viewText
+                _viewText,
+                _viewMtgwiki
             };
 
             _childFormPropertyNames = new List<string>()
@@ -81,7 +84,8 @@ namespace TestMtgSdkDotnet
                 "ListOfImages",
                 "ViewUserInput",
                 "ViewImage",
-                "ViewText"
+                "ViewText",
+                "ViewMtgwiki"
             };
 
             // 子フォームを表示する
@@ -103,6 +107,7 @@ namespace TestMtgSdkDotnet
             _selectCardInfo += _viewUserInput.SelectCardInfo;
             _selectCardInfo += _viewImage.SelectCardInfo;
             _selectCardInfo += _viewText.SelectCardInfo;
+            _selectCardInfo += _viewMtgwiki.SelectCardInfo;
 
             _updateUserInput += _viewUserInput.UpdateUserInput;
             _updateUserInput += _listOfCards.UpdateUserInput;

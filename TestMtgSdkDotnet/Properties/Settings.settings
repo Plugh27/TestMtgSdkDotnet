@@ -38,5 +38,11 @@
     <Setting Name="ViewTextSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">100, 200</Value>
     </Setting>
+    <Setting Name="ViewMtgWikiLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">60, 60</Value>
+    </Setting>
+    <Setting Name="ViewMtgWikiSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">100, 200</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

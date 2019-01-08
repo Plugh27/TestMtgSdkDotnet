@@ -24,9 +24,9 @@ namespace TestMtgSdkDotnet
                 return;
             }
 
-            Util.DownloadCardImage(cardInfos);
+            ImageUtil.DownloadCardImage(cardInfos);
 
-            Util.ShowCardImage(cardInfos, SolePictureBox);
+            ImageUtil.ShowCardImage(cardInfos, SolePictureBox);
         }
 
         private void ListOfImages_Load(object sender, EventArgs e)

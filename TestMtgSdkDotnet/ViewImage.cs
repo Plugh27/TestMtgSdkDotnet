@@ -29,10 +29,10 @@ namespace TestMtgSdkDotnet
             List<CardInfo> targetCardInfos = new List<CardInfo> { cardInfos.First() };
             CardInfo targetCard = targetCardInfos.First();
 
-            Util.DownloadCardImage(targetCardInfos);
+            ImageUtil.CheckEnglishCardImage(targetCardInfos);
 
             // 
-            string filePath = string.Format(Util._officialCardImageFileNameFormat, targetCard.japaneaseMultiverseId);
+            string filePath = ImageUtil.CardImageFileName(targetCard.multiverseid);
             Image baseImage = Image.FromFile(filePath);
 
             Size baseSize = baseImage.Size;

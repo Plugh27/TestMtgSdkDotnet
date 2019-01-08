@@ -60,6 +60,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImageUtil.cs" />
     <Compile Include="ListOfCards.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +90,12 @@
     </Compile>
     <Compile Include="ViewImage.Designer.cs">
       <DependentUpon>ViewImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMtgwiki.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewMtgwiki.Designer.cs">
+      <DependentUpon>ViewMtgwiki.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewText.cs">
       <SubType>Form</SubType>
@@ -126,6 +133,9 @@
     </Compile>
     <EmbeddedResource Include="ViewImage.resx">
       <DependentUpon>ViewImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewMtgwiki.resx">
+      <DependentUpon>ViewMtgwiki.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewText.resx">
       <DependentUpon>ViewText.cs</DependentUpon>
