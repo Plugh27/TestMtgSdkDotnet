@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
@@ -7,6 +6,7 @@ using Newtonsoft.Json;
 // JSONの要素に対応させるので、命名規則のチェックを切る
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedMember.Global
+// ReSharper disable IdentifierTypo
 
 namespace TestMtgSdkDotnet
 {
@@ -182,7 +182,7 @@ namespace TestMtgSdkDotnet
         // TODO: ↓2つの処理、LINQでまとめる
 
         [JsonIgnore]
-        public int japaneaseMultiverseId
+        public int japaneseMultiverseId
         {
             get
             {
@@ -211,7 +211,7 @@ namespace TestMtgSdkDotnet
         }
 
         [JsonIgnore]
-        public string japaneaseName
+        public string japaneseName
         {
             get
             {

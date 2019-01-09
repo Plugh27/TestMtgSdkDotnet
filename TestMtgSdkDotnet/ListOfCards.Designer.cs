@@ -93,7 +93,7 @@
             this.OpenJapaneaseWikiToolStripMenuItem.Name = "OpenJapaneaseWikiToolStripMenuItem";
             this.OpenJapaneaseWikiToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
             this.OpenJapaneaseWikiToolStripMenuItem.Text = "日本語Wikiに飛ぶ";
-            this.OpenJapaneaseWikiToolStripMenuItem.Click += new System.EventHandler(this.OpenJapaneaseWikiToolStripMenuItem_Click);
+            this.OpenJapaneaseWikiToolStripMenuItem.Click += new System.EventHandler(this.OpenJapaneseWikiToolStripMenuItem_Click);
             // 
             // WhiteCheckBox
             // 

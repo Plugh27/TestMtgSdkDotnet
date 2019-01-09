@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
@@ -82,7 +80,7 @@ namespace TestMtgSdkDotnet
         {
             string urlFormat = "http://mtgwiki.com/wiki/{0}/{1}";
 
-            string japaneaseCardName = cardInfo.japaneaseName;
+            string japaneaseCardName = cardInfo.japaneseName;
             string cardName = cardInfo.name;
             cardName = cardName.Replace(" ", "_");
 

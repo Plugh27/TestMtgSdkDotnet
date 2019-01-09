@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 // JSONの要素に対応させるので、命名規則のチェックを切る
 // ReSharper disable InconsistentNaming

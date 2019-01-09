@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TestMtgSdkDotnet
@@ -40,7 +35,7 @@ namespace TestMtgSdkDotnet
             List<string> nameList = new List<string>
             {
                 "name",
-                "japaneaseName",
+                "japaneseName",
                 "draftPoint",
                 "colorsText",
                 "text"
@@ -59,15 +54,8 @@ namespace TestMtgSdkDotnet
             // リストビューのColumnを設定する
             Util.InitColumns(nameList, widthList, SoleListView);
 
-            // 名称はハイパーリンクとして表示する
-            //Util.SetHyperlinkOfColumn(SoleListView, "name", true);
-
             SoleListView.HyperlinkClicked += SoleListView_HyperlinkClicked;
-
-
-
         }
-
 
         private void SoleListView_HyperlinkClicked(object sender, BrightIdeasSoftware.HyperlinkClickedEventArgs e)
         {
@@ -118,8 +106,8 @@ namespace TestMtgSdkDotnet
                 }
             }
 
-            // TODO: Windowsフォームによるフィルタ処理
-            FilterByColor(ref _showCardInfos); // TODO: メンバ変数をパラメータ化する
+            // Windowsフォームによるフィルタ処理
+            FilterByColor(ref _showCardInfos);
             FilterByRarity(ref _showCardInfos);
             FilterByType(ref _showCardInfos);
             FilterByCardName(ref _showCardInfos);
@@ -139,25 +127,25 @@ namespace TestMtgSdkDotnet
             }
 
             // 文字が入力されていたら、一致する部分があるCardInfoのみ残す
-            List<CardInfo> filterdCardInfos = new List<CardInfo>();
+            List<CardInfo> filteredCardInfos = new List<CardInfo>();
             foreach (var cardInfo in cardInfos)
             {
                 // 英語名と部分一致していたら有効
                 if (cardInfo.name.IndexOf(CardNameTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    filterdCardInfos.Add(cardInfo);
+                    filteredCardInfos.Add(cardInfo);
                     continue;
                 }
 
                 // 日本語名と部分一致していたら有効
-                if (cardInfo.japaneaseName.IndexOf(CardNameTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                if (cardInfo.japaneseName.IndexOf(CardNameTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
                 {
-                    filterdCardInfos.Add(cardInfo);
+                    filteredCardInfos.Add(cardInfo);
                     continue;
                 }
             }
 
-            cardInfos = filterdCardInfos;
+            cardInfos = filteredCardInfos;
         }
 
         private void FilterByType(ref List<CardInfo> cardInfos)
@@ -200,7 +188,7 @@ namespace TestMtgSdkDotnet
                 }
             }
 
-            List<CardInfo> filterdCardInfos = new List<CardInfo>();
+            List<CardInfo> filteredCardInfos = new List<CardInfo>();
             foreach (var cardInfo in cardInfos)
             {
                 bool isEnable = false;
@@ -215,11 +203,11 @@ namespace TestMtgSdkDotnet
 
                 if (isEnable)
                 {
-                    filterdCardInfos.Add(cardInfo);
+                    filteredCardInfos.Add(cardInfo);
                 }
             }
 
-            cardInfos = filterdCardInfos;
+            cardInfos = filteredCardInfos;
         }
 
         private void FilterByRarity(ref List<CardInfo> cardInfos)
@@ -260,7 +248,7 @@ namespace TestMtgSdkDotnet
                 }
             }
 
-            List<CardInfo> filterdCardInfos = new List<CardInfo>();
+            List<CardInfo> filteredCardInfos = new List<CardInfo>();
             foreach (var cardInfo in cardInfos)
             {
                 bool isEnable = false;
@@ -275,11 +263,11 @@ namespace TestMtgSdkDotnet
 
                 if (isEnable)
                 {
-                    filterdCardInfos.Add(cardInfo);
+                    filteredCardInfos.Add(cardInfo);
                 }
             }
 
-            cardInfos = filterdCardInfos;
+            cardInfos = filteredCardInfos;
         }
 
         private void FilterByColor(ref List<CardInfo> cardInfos)
@@ -327,7 +315,7 @@ namespace TestMtgSdkDotnet
                 }
             }
 
-            List<CardInfo> filterdCardInfos = new List<CardInfo>();
+            List<CardInfo> filteredCardInfos = new List<CardInfo>();
             foreach (var cardInfo in cardInfos)
             {
                 bool isEnable = true;
@@ -363,34 +351,34 @@ namespace TestMtgSdkDotnet
                 // 有効なデータならリストに加える
                 if (isEnable)
                 {
-                    filterdCardInfos.Add(cardInfo);
+                    filteredCardInfos.Add(cardInfo);
                 }
             }
 
-            cardInfos = filterdCardInfos;
+            cardInfos = filteredCardInfos;
         }
 
-        private void SoleListView_SelectedIndexChanged(object sender, EventArgs e)
+        private List<CardInfo> CardInfosFromSelectedObjects()
         {
-            // TODO: このブロック関数化
-            List<CardInfo> selectedCardInfos = new List<CardInfo>();
-            foreach (var item in SoleListView.SelectedObjects)
-            {
-                selectedCardInfos.Add((CardInfo) item);
-            }
-
-            ((Form1) MdiParent).CallSelectCard(selectedCardInfos);
-
-        }
-
-        private void OpenJapaneaseWikiToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // TODO: このブロック関数化
             List<CardInfo> selectedCardInfos = new List<CardInfo>();
             foreach (var item in SoleListView.SelectedObjects)
             {
                 selectedCardInfos.Add((CardInfo)item);
             }
+
+            return selectedCardInfos;
+        }
+
+        private void SoleListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<CardInfo> selectedCardInfos = CardInfosFromSelectedObjects();
+
+            ((Form1) MdiParent).CallSelectCard(selectedCardInfos);
+        }
+
+        private void OpenJapaneseWikiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            List<CardInfo> selectedCardInfos = CardInfosFromSelectedObjects();
 
             foreach (var cardInfo in selectedCardInfos)
             {

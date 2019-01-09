@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
 // JSONの要素に対応させるので、命名規則のチェックを切る
 // ReSharper disable InconsistentNaming
 // ReSharper disable UnusedMember.Global
+// ReSharper disable IdentifierTypo
 
 namespace TestMtgSdkDotnet
 {

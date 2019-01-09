@@ -56,7 +56,7 @@ namespace TestMtgSdkDotnet
             {
                 UserInputCardInfo userInputCardInfo = new UserInputCardInfo();
                 userInputCardInfo.id = _targetCardInfo.id;
-                userInputCardInfo.cardName = _targetCardInfo.japaneaseName + "/" + _targetCardInfo.name;
+                userInputCardInfo.cardName = _targetCardInfo.japaneseName + "/" + _targetCardInfo.name;
                 _userInputCardInfos.Add(userInputCardInfo);
             }
 
@@ -106,7 +106,7 @@ namespace TestMtgSdkDotnet
             _isChanged = false;
 
             // カード名を設定する TODO: SaveUserInputと重複して宇r
-            CardNameTextBox.Text = _targetCardInfo.japaneaseName + "/" + _targetCardInfo.name;
+            CardNameTextBox.Text = _targetCardInfo.japaneseName + "/" + _targetCardInfo.name;
 
             // 処理対象のユーザー入力情報があればフォームに反映する
             if (_userInputCardInfos.Any(s => s.id == _targetCardInfo.id))

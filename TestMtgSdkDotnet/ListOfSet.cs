@@ -33,16 +33,6 @@ namespace TestMtgSdkDotnet
                 }
             }
 
-            //// 特定のセットを先頭に移動させる
-            //List<string> codes = new List<string>() { "XLN", "RIX", "DOM", "M19", "GRN" };
-            //foreach (var code in codes)
-            //{
-            //    int i = sets.FindIndex(0, s => s.code == code);
-            //    SetInfo set = sets[i];
-            //    sets.RemoveAt(i);
-            //    sets.Insert(0, set);
-            //}
-
             SoleListBox.DataSource = _showSetInfos;
         }
 

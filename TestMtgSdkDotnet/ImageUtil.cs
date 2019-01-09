@@ -4,21 +4,18 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TestMtgSdkDotnet
 {
     class ImageUtil
     {
-        public static readonly string _officialCardImageFileNameFormat = "Image{0}.jfif";
+        public static readonly string OfficialCardImageFileNameFormat = "Image{0}.jfif";
 
         public static string CardImageFileName(int multiverseId)
         {
-            return string.Format(_officialCardImageFileNameFormat, multiverseId);
+            return string.Format(OfficialCardImageFileNameFormat, multiverseId);
         }
 
         public static void CheckEnglishCardImage(List<CardInfo> cardInfos)
@@ -26,7 +23,7 @@ namespace TestMtgSdkDotnet
             foreach (var cardInfo in cardInfos)
             {
                 string uri = cardInfo.imageUrl;
-                string filePath = string.Format(_officialCardImageFileNameFormat, cardInfo.multiverseid);
+                string filePath = string.Format(OfficialCardImageFileNameFormat, cardInfo.multiverseid);
 
                 CheckCardImage(uri, filePath);
             }
@@ -39,7 +36,7 @@ namespace TestMtgSdkDotnet
             foreach (var cardInfo in cardInfos)
             {
                 // TODO: 日本のmultivaeridnisuru
-                int multiverseId = cardInfo.japaneaseMultiverseId;
+                int multiverseId = cardInfo.japaneseMultiverseId;
 
                 string filePath = CardImageFileName(multiverseId);
                 string url = string.Format(officialCardImageFormat, multiverseId);
@@ -57,7 +54,6 @@ namespace TestMtgSdkDotnet
             }
         }
 
-
         public static void ShowCardImage(List<CardInfo> cardInfos, PictureBox pictureBox)
         {
             // 指定されたカードの画像データを集める。既にローカルファイルになっている前提で処理する。
@@ -66,7 +62,7 @@ namespace TestMtgSdkDotnet
             int height = 0;
             foreach (var cardInfo in cardInfos)
             {
-                string filePath = string.Format(_officialCardImageFileNameFormat, cardInfo.japaneaseMultiverseId);
+                string filePath = string.Format(OfficialCardImageFileNameFormat, cardInfo.japaneseMultiverseId);
                 Image image = Image.FromFile(filePath);
                 images.Add(image);
                 totalWidth += image.Width;
@@ -93,39 +89,14 @@ namespace TestMtgSdkDotnet
 
         }
 
-        public static void UpdatePictureBoxByMultiverseId(int multiverseId, PictureBox targetPictureBox)
-        {
-            string officialCardImageFormat = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={0}&type=card";
-            string officialCardImageFileNameFormat = "Image{0}.jfif";
-
-            string filePath = string.Format(officialCardImageFileNameFormat, multiverseId);
-
-            // ファイルが存在しなければ、ダウンロードしてファイルを作る
-            bool isExists = System.IO.File.Exists(filePath);
-            if (isExists == false)
-            {
-                string url = string.Format(officialCardImageFormat, multiverseId);
-                DownloadCardImage(url, filePath);
-            }
-
-            Image webImage = Image.FromFile(filePath);
-            targetPictureBox.Height = webImage.Height;
-            targetPictureBox.Width = webImage.Width;
-            targetPictureBox.Image = webImage;
-        }
-
-
         public static void DownloadCardImage(string targetUrl, string filePath)
         {
-            // TODO: 非同期に対応するバージョンも作る
             // TODO: なんか後処理いらないのか確認する
             WebRequest requestPic = WebRequest.Create(targetUrl);
             WebResponse responsePic = requestPic.GetResponse();
             Image webImage = Image.FromStream(responsePic.GetResponseStream() ?? throw new InvalidOperationException());
 
             webImage.Save(filePath, ImageFormat.Png);
-
         }
-
     }
 }

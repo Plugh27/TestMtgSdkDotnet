@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TestMtgSdkDotnet
@@ -48,7 +43,7 @@ namespace TestMtgSdkDotnet
             CardInfo cardInfo = cardInfos.First();
 
             ScryfallCardInfo scryfallCardInfo =
-                _scryfallCardInfos.Find(s => s.multiverse_ids.Contains(cardInfo.japaneaseMultiverseId));
+                _scryfallCardInfos.Find(s => s.multiverse_ids.Contains(cardInfo.japaneseMultiverseId));
             if (scryfallCardInfo == null)
             {
                 SoleTextBox.Text = @"取得失敗（同名のカードが複数ある場合などに発生します）";
