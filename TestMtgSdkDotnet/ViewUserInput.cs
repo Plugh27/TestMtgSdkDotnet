@@ -56,18 +56,20 @@ namespace TestMtgSdkDotnet
             {
                 UserInputCardInfo userInputCardInfo = new UserInputCardInfo();
                 userInputCardInfo.id = _targetCardInfo.id;
+                userInputCardInfo.set = _targetCardInfo.set;
                 userInputCardInfo.cardName = _targetCardInfo.japaneseName + "/" + _targetCardInfo.name;
                 _userInputCardInfos.Add(userInputCardInfo);
             }
 
             // フォームに表示中の内容を、ディスクに保存するデータに反映する
             UserInputCardInfo temp = _userInputCardInfos.First(s => s.id == _targetCardInfo.id);
+            temp.set = _targetCardInfo.set;
             temp.draftPoint = (int)DraftPointNumericUpDown.Value;
             temp.memo = MemoTextBox.Text;
 
             // ユーザー入力情報をディスクに保存する
             // TODO: エラー処理必要かも
-            ((Form1)ParentForm).SaveUserInfo();
+            ((Form1)ParentForm).SaveUserInputInfo(_targetCardInfo.set);
         }
 
         public void SelectCardInfo(List<CardInfo> cardInfos)
@@ -106,7 +108,7 @@ namespace TestMtgSdkDotnet
             _isChanged = false;
 
             // カード名を設定する TODO: SaveUserInputと重複して宇r
-            CardNameTextBox.Text = _targetCardInfo.japaneseName + "/" + _targetCardInfo.name;
+            CardNameTextBox.Text = _targetCardInfo.japaneseName + @"/" + _targetCardInfo.name;
 
             // 処理対象のユーザー入力情報があればフォームに反映する
             if (_userInputCardInfos.Any(s => s.id == _targetCardInfo.id))

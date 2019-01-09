@@ -9,6 +9,7 @@ namespace TestMtgSdkDotnet
     public class UserInputCardInfo
     {
         public string id { get; set; }
+        public string set { get; set; }
         public string cardName { get; set; }
         public int draftPoint { get; set; }
         public string memo { get; set; }

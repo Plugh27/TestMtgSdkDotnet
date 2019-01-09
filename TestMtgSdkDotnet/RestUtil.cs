@@ -9,12 +9,24 @@ namespace TestMtgSdkDotnet
 {
     class RestUtil
     {
+        /// <summary>
+        /// 公式APIのセット全体を取得するURL
+        /// </summary>
         private static string officialSetInfoUrl = "https://api.magicthegathering.io/v1/sets";
 
+        /// <summary>
+        /// 公式APIで取得したセット情報を保存しているファイル名
+        /// </summary>
         private static string officialSetInfoFileName = "OfficialSetInfo.json";
 
+        /// <summary>
+        /// 公式APIで取得したカード情報を保存しているファイル名、パラメータはセットのコード（ドミナリアならDOMなど）
+        /// </summary>
         private static string officialCardInfoFileNameFormat = "OfficialCardInfo_{0}.json";
 
+        /// <summary>
+        /// ScryfallのAPIで取得したカード情報を保存しているファイル名。パラメータはセットのコード（ドミナリアならDOMなど）
+        /// </summary>
         private static string scryfallCardInfoFileNameFormat = "ScryfallCardInfo_{0}.json";
 
         public static DataOfGetAllSets CheckOfficialSetData()
