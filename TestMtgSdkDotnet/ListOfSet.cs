@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 
 namespace TestMtgSdkDotnet
@@ -46,6 +47,22 @@ namespace TestMtgSdkDotnet
 
             // TODO: エラー処理必要かも
             ((Form1) ParentForm).CallSelectSet(sets);
+        }
+
+        private void ReloadSetInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetInfo setInfo = (SetInfo) SoleListBox.SelectedItem;
+
+            // 選択されていたセットの、カード情報を削除する
+            File.Delete(RestUtil.CardInfosFileName(setInfo.code));
+            File.Delete(RestUtil.ScryfallCardInfosFileName(setInfo.code));
+
+            // セット情報を再取得する
+            File.Delete(RestUtil.OfficialSetInfoFileName);
+            DataOfGetAllSets dataOfGetAllSets = RestUtil.CheckOfficialSetData();
+
+            // TODO: エラー処理必要かも
+            ((Form1)ParentForm).CallUpdateSetInfo(dataOfGetAllSets);
         }
     }
 }

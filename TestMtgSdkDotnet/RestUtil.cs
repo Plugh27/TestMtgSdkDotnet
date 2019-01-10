@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
@@ -12,12 +13,12 @@ namespace TestMtgSdkDotnet
         /// <summary>
         /// 公式APIのセット全体を取得するURL
         /// </summary>
-        private static string officialSetInfoUrl = "https://api.magicthegathering.io/v1/sets";
+        public static readonly string OfficialSetInfoUrl = "https://api.magicthegathering.io/v1/sets";
 
         /// <summary>
         /// 公式APIで取得したセット情報を保存しているファイル名
         /// </summary>
-        private static string officialSetInfoFileName = "OfficialSetInfo.json";
+        public static readonly string OfficialSetInfoFileName = "OfficialSetInfo.json";
 
         /// <summary>
         /// 公式APIで取得したカード情報を保存しているファイル名、パラメータはセットのコード（ドミナリアならDOMなど）
@@ -32,24 +33,33 @@ namespace TestMtgSdkDotnet
         public static DataOfGetAllSets CheckOfficialSetData()
         {
             // セット情報がディスクになければ、Webから取得してディスクに保存する
-            if (!File.Exists(officialSetInfoFileName))
+            if (!File.Exists(OfficialSetInfoFileName))
             {
-                string tempJson = GetHttpData(officialSetInfoUrl);
+                string tempJson = GetHttpData(OfficialSetInfoUrl);
                 DataOfGetAllSets tempObject = JsonConvert.DeserializeObject<DataOfGetAllSets>(tempJson);
 
                 string serializedJson = JsonConvert.SerializeObject(tempObject, Formatting.Indented);
-                File.WriteAllText(officialSetInfoFileName, serializedJson);
+                File.WriteAllText(OfficialSetInfoFileName, serializedJson);
             }
 
             // セット情報をディスクから取得して返す
-            string jsonOfGetAllSets = File.ReadAllText(officialSetInfoFileName);
-            return JsonConvert.DeserializeObject<DataOfGetAllSets>(jsonOfGetAllSets);
+            string jsonOfGetAllSets = File.ReadAllText(OfficialSetInfoFileName);
+            DataOfGetAllSets dataOfGetAllSets = JsonConvert.DeserializeObject<DataOfGetAllSets>(jsonOfGetAllSets);
+
+            // セット情報をリリース順に並べる
+            dataOfGetAllSets.sets = dataOfGetAllSets.sets.OrderByDescending(s => s.releaseDate).ToList();
+
+            return dataOfGetAllSets;
         }
 
+        public static string CardInfosFileName(string set)
+        {
+            return String.Format(officialCardInfoFileNameFormat, set);
+        }
 
         public static List<CardInfo> CheckOfficialData(string set)
         {
-            string oneSetCardInfosFileName = String.Format(officialCardInfoFileNameFormat, set);
+            string oneSetCardInfosFileName = CardInfosFileName(set);
 
             // ディスクにデータがあるかチェックして、なければネットから取得する
             if (!File.Exists(oneSetCardInfosFileName))
@@ -76,10 +86,14 @@ namespace TestMtgSdkDotnet
             return JsonConvert.DeserializeObject<List<CardInfo>>(File.ReadAllText(oneSetCardInfosFileName));
         }
 
+        public static string ScryfallCardInfosFileName(string set)
+        {
+            return String.Format(scryfallCardInfoFileNameFormat, set);
+        }
 
         public static List<ScryfallCardInfo> CheckScryfallData(string set)
         {
-            string scryfallFileName = String.Format(scryfallCardInfoFileNameFormat, set);
+            string scryfallFileName = ScryfallCardInfosFileName(set);
 
             // ディスクにデータがあるかチェックして、なければネットから取得してディスクに書き出す
             if (!File.Exists(scryfallFileName))

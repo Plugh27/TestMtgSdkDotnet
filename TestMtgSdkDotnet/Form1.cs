@@ -128,6 +128,11 @@ namespace TestMtgSdkDotnet
             _selectCardInfo(cardInfos);
         }
 
+        public void CallUpdateSetInfo(DataOfGetAllSets dataOfGetAllSets)
+        {
+            _updateSetInfo(dataOfGetAllSets.sets);
+        }
+
         public void SaveUserInputInfo(string set)
         {
             List<UserInputCardInfo> targetUserInputCardInfos = _userInputCardInfos.FindAll(s => s.set == set);
@@ -177,9 +182,6 @@ namespace TestMtgSdkDotnet
         private void InitializeData()
         {
             DataOfGetAllSets dataOfGetAllSets = RestUtil.CheckOfficialSetData();
-
-            // セット情報をリリース順に並べる
-            dataOfGetAllSets.sets = dataOfGetAllSets.sets.OrderByDescending(s => s.releaseDate).ToList();
 
             // ディスクからユーザー入力情報を取得して一元化する
             _userInputCardInfos = new List<UserInputCardInfo>();

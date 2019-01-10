@@ -28,11 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.SoleListBox = new System.Windows.Forms.ListBox();
+            this.SetListContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ReloadSetInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SetListContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // SoleListBox
             // 
+            this.SoleListBox.ContextMenuStrip = this.SetListContextMenuStrip;
             this.SoleListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SoleListBox.FormattingEnabled = true;
             this.SoleListBox.ItemHeight = 12;
@@ -43,6 +48,20 @@
             this.SoleListBox.TabIndex = 0;
             this.SoleListBox.SelectedIndexChanged += new System.EventHandler(this.SoleListBox_SelectedIndexChanged);
             // 
+            // SetListContextMenuStrip
+            // 
+            this.SetListContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ReloadSetInfoToolStripMenuItem});
+            this.SetListContextMenuStrip.Name = "SetListContextMenuStrip";
+            this.SetListContextMenuStrip.Size = new System.Drawing.Size(130, 26);
+            // 
+            // ReloadSetInfoToolStripMenuItem
+            // 
+            this.ReloadSetInfoToolStripMenuItem.Name = "ReloadSetInfoToolStripMenuItem";
+            this.ReloadSetInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ReloadSetInfoToolStripMenuItem.Text = "再取得する";
+            this.ReloadSetInfoToolStripMenuItem.Click += new System.EventHandler(this.ReloadSetInfoToolStripMenuItem_Click);
+            // 
             // ListOfSet
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -52,6 +71,7 @@
             this.Name = "ListOfSet";
             this.Text = "ListOfSet";
             this.Load += new System.EventHandler(this.ListOfSet_Load);
+            this.SetListContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -59,5 +79,7 @@
         #endregion
 
         private System.Windows.Forms.ListBox SoleListBox;
+        private System.Windows.Forms.ContextMenuStrip SetListContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem ReloadSetInfoToolStripMenuItem;
     }
 }
