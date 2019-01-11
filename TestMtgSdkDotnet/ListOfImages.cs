@@ -11,14 +11,17 @@ namespace TestMtgSdkDotnet
             InitializeComponent();
         }
 
-        public void SelectCard(List<CardInfo> cardInfos)
+        public void SelectCardInfo(List<CardInfo> cardInfos)
         {
             if (cardInfos.Count == 0)
             {
                 return;
             }
 
-            ImageUtil.DownloadCardImage(cardInfos);
+            foreach (var cardInfo in cardInfos)
+            {
+                ImageUtil.CheckJapaneseCardImage(cardInfo);
+            }
 
             ImageUtil.ShowCardImage(cardInfos, SolePictureBox);
         }

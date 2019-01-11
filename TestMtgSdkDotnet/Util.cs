@@ -86,5 +86,22 @@ namespace TestMtgSdkDotnet
 
             return string.Format(urlFormat, japaneaseCardName, cardName);
         }
+
+        public static ScryfallCardInfo FindEqualingJapaneseScryfallCardInfo(CardInfo cardInfo, List<ScryfallCardInfo> scryfallCardInfos)
+        {
+            ScryfallCardInfo scryfallCardInfo =
+                scryfallCardInfos.Find(s => s.multiverse_ids.Contains(cardInfo.japaneseMultiverseId));
+
+            return scryfallCardInfo;
+        }
+
+        public static ScryfallCardInfo FindEqualingEnglishScryfallCardInfo(CardInfo cardInfo,
+            List<ScryfallCardInfo> scryfallCardInfos)
+        {
+            ScryfallCardInfo scryfallCardInfo =
+                scryfallCardInfos.Find(s => s.multiverse_ids.Contains(cardInfo.multiverseid));
+
+            return scryfallCardInfo;
+        }
     }
 }

@@ -13,33 +13,98 @@ namespace TestMtgSdkDotnet
             InitializeComponent();
         }
 
+        private enum ImageType
+        {
+            Japanese,
+            English,
+            JapaneseScryfallBorderCrop,
+            EnglishScryfallBorderCrop
+        }
+
+        private ImageType _imageType;
+
+        private List<CardInfo> _selectedCardInfos;
+        private List<ScryfallCardInfo> _scryfallCardInfos;
+
+        // カード情報が更新された時の処理
+        public void UpdateCardInfo(List<CardInfo> cardInfos, List<ScryfallCardInfo> scryfallCardInfos)
+        {
+            _scryfallCardInfos = scryfallCardInfos;
+        }
+
         public void SelectCardInfo(List<CardInfo> cardInfos)
         {
-            // TODO: 実装
-            if (cardInfos.Count == 0)
+            _selectedCardInfos = cardInfos;
+            MakeSoleImage();
+        }
+
+        private void MakeSoleImage()
+        {
+            if (_selectedCardInfos.Count == 0)
             {
                 return;
             }
 
             // 先頭のカードのみ表示する
-            List<CardInfo> targetCardInfos = new List<CardInfo> { cardInfos.First() };
+            List<CardInfo> targetCardInfos = new List<CardInfo> { _selectedCardInfos.First() };
             CardInfo targetCard = targetCardInfos.First();
 
-            ImageUtil.CheckEnglishCardImage(targetCardInfos);
 
-            // 
-            string filePath = ImageUtil.CardImageFileName(targetCard.multiverseid);
-            Image baseImage = Image.FromFile(filePath);
+            Image baseImage;
+            if (_imageType == ImageType.English)
+            {
+                ImageUtil.CheckEnglishCardImage(targetCard);
+                baseImage = ImageUtil.ImageEnglishCard(targetCard);
+            }
+            else if (_imageType == ImageType.Japanese)
+            {
+                ImageUtil.CheckJapaneseCardImage(targetCard);
+                baseImage = ImageUtil.ImageJapaneseCard(targetCard);
+            }
+            else if(_imageType == ImageType.JapaneseScryfallBorderCrop)
+            {
+                ScryfallCardInfo targetScryfallCardInfo = Util.FindEqualingJapaneseScryfallCardInfo(targetCard, _scryfallCardInfos);
+                if (targetScryfallCardInfo == null)
+                {
+                    return;
+                }
 
+                ImageUtil.CheckScryfallBorderCropCardImage(targetScryfallCardInfo);
+                baseImage = ImageUtil.ImageScryfallBorderCropCard(targetScryfallCardInfo);
+            }
+            else if(_imageType == ImageType.EnglishScryfallBorderCrop)
+            {
+                ScryfallCardInfo targetScryfallCardInfo =
+                    Util.FindEqualingEnglishScryfallCardInfo(targetCard, _scryfallCardInfos);
+                if (targetScryfallCardInfo == null)
+                {
+                    return;
+                }
+
+                ImageUtil.CheckScryfallBorderCropCardImage(targetScryfallCardInfo);
+                baseImage = ImageUtil.ImageScryfallBorderCropCard(targetScryfallCardInfo);
+            }
+            else
+            {
+                // TODO: エラー処理
+
+                baseImage = ImageUtil.ImageEnglishCard(targetCard);
+            }
+            
+
+            // フォームの幅に合わせて画像を伸縮する
+            // 伸縮後の幅と高さを計算
             Size baseSize = baseImage.Size;
             int resizeWidth = ClientSize.Width;
             int resizeHeight = (int)(baseSize.Height * (double)resizeWidth / baseSize.Width);
 
+            // 伸縮後の画像を作成
             Bitmap resizeBmp = new Bitmap(resizeWidth, resizeHeight);
             Graphics g = Graphics.FromImage(resizeBmp);
             g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
             g.DrawImage(baseImage, 0, 0, resizeWidth, resizeHeight);
 
+            // 画像コントロールのサイズを調整
             SolePictureBox.Width = resizeBmp.Width;
             SolePictureBox.Height = resizeBmp.Height;
             SolePictureBox.Image = resizeBmp;
@@ -49,6 +114,34 @@ namespace TestMtgSdkDotnet
         {
             // 右上のボタンを消す
             ControlBox = false;
+
+            _selectedCardInfos = new List<CardInfo>();
+            _scryfallCardInfos = new List<ScryfallCardInfo>();
+            _imageType = ImageType.EnglishScryfallBorderCrop;
+        }
+
+        private void JapaneseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _imageType = ImageType.Japanese;
+            MakeSoleImage();
+        }
+
+        private void EnglishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _imageType = ImageType.English;
+            MakeSoleImage();
+        }
+
+        private void ScryfallJapaneseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _imageType = ImageType.JapaneseScryfallBorderCrop;
+            MakeSoleImage();
+        }
+
+        private void ScryfallEnglishToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _imageType = ImageType.EnglishScryfallBorderCrop;
+            MakeSoleImage();
         }
     }
 }

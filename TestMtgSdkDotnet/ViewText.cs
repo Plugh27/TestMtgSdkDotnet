@@ -42,8 +42,7 @@ namespace TestMtgSdkDotnet
 
             CardInfo cardInfo = cardInfos.First();
 
-            ScryfallCardInfo scryfallCardInfo =
-                _scryfallCardInfos.Find(s => s.multiverse_ids.Contains(cardInfo.japaneseMultiverseId));
+            ScryfallCardInfo scryfallCardInfo = Util.FindEqualingJapaneseScryfallCardInfo(cardInfo, _scryfallCardInfos);
             if (scryfallCardInfo == null)
             {
                 SoleTextBox.Text = @"取得失敗（同名のカードが複数ある場合などに発生します）";

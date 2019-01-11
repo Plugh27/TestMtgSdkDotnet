@@ -98,8 +98,9 @@ namespace TestMtgSdkDotnet
 
             _updateCardInfo += _listOfCards.UpdateCardInfo;
             _updateCardInfo += _viewText.UpdateCardInfo;
+            _updateCardInfo += _viewImage.UpdateCardInfo;
 
-            _selectCardInfo += _listOfImages.SelectCard;
+            _selectCardInfo += _listOfImages.SelectCardInfo;
             _selectCardInfo += _viewUserInput.SelectCardInfo;
             _selectCardInfo += _viewImage.SelectCardInfo;
             _selectCardInfo += _viewText.SelectCardInfo;

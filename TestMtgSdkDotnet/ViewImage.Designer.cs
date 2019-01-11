@@ -28,18 +28,64 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.SolePictureBox = new System.Windows.Forms.PictureBox();
+            this.ImageContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.JapaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.EnglishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ScryfallJapaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ScryfallEnglishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.SolePictureBox)).BeginInit();
+            this.ImageContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // SolePictureBox
             // 
+            this.SolePictureBox.ContextMenuStrip = this.ImageContextMenuStrip;
             this.SolePictureBox.Location = new System.Drawing.Point(0, 0);
             this.SolePictureBox.Name = "SolePictureBox";
             this.SolePictureBox.Size = new System.Drawing.Size(405, 277);
             this.SolePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.SolePictureBox.TabIndex = 0;
             this.SolePictureBox.TabStop = false;
+            // 
+            // ImageContextMenuStrip
+            // 
+            this.ImageContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.JapaneseToolStripMenuItem,
+            this.EnglishToolStripMenuItem,
+            this.ScryfallJapaneseToolStripMenuItem,
+            this.ScryfallEnglishToolStripMenuItem});
+            this.ImageContextMenuStrip.Name = "ImageContextMenuStrip";
+            this.ImageContextMenuStrip.Size = new System.Drawing.Size(181, 114);
+            // 
+            // JapaneseToolStripMenuItem
+            // 
+            this.JapaneseToolStripMenuItem.Name = "JapaneseToolStripMenuItem";
+            this.JapaneseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.JapaneseToolStripMenuItem.Text = "日本語";
+            this.JapaneseToolStripMenuItem.Click += new System.EventHandler(this.JapaneseToolStripMenuItem_Click);
+            // 
+            // EnglishToolStripMenuItem
+            // 
+            this.EnglishToolStripMenuItem.Name = "EnglishToolStripMenuItem";
+            this.EnglishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.EnglishToolStripMenuItem.Text = "英語";
+            this.EnglishToolStripMenuItem.Click += new System.EventHandler(this.EnglishToolStripMenuItem_Click);
+            // 
+            // ScryfallJapaneseToolStripMenuItem
+            // 
+            this.ScryfallJapaneseToolStripMenuItem.Name = "ScryfallJapaneseToolStripMenuItem";
+            this.ScryfallJapaneseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ScryfallJapaneseToolStripMenuItem.Text = "Scryfall（日本語）";
+            this.ScryfallJapaneseToolStripMenuItem.Click += new System.EventHandler(this.ScryfallJapaneseToolStripMenuItem_Click);
+            // 
+            // ScryfallEnglishToolStripMenuItem
+            // 
+            this.ScryfallEnglishToolStripMenuItem.Name = "ScryfallEnglishToolStripMenuItem";
+            this.ScryfallEnglishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ScryfallEnglishToolStripMenuItem.Text = "Scryfall（英語）";
+            this.ScryfallEnglishToolStripMenuItem.Click += new System.EventHandler(this.ScryfallEnglishToolStripMenuItem_Click);
             // 
             // ViewImage
             // 
@@ -51,6 +97,7 @@
             this.Text = "ViewImage";
             this.Load += new System.EventHandler(this.ViewImage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.SolePictureBox)).EndInit();
+            this.ImageContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -58,5 +105,10 @@
         #endregion
 
         private System.Windows.Forms.PictureBox SolePictureBox;
+        private System.Windows.Forms.ContextMenuStrip ImageContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem JapaneseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem EnglishToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ScryfallJapaneseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ScryfallEnglishToolStripMenuItem;
     }
 }
