@@ -45,8 +45,7 @@ namespace TestMtgSdkDotnet
                 sets.Add((SetInfo) item);
             }
 
-            // TODO: エラー処理必要かも
-            ((Form1) ParentForm).CallSelectSet(sets);
+            ((Form1) ParentForm)?.CallSelectSet(sets);
         }
 
         private void ReloadSetInfoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -62,7 +61,7 @@ namespace TestMtgSdkDotnet
             DataOfGetAllSets dataOfGetAllSets = RestUtil.CheckOfficialSetData();
 
             // TODO: エラー処理必要かも
-            ((Form1)ParentForm).CallUpdateSetInfo(dataOfGetAllSets);
+            ((Form1)ParentForm)?.CallUpdateSetInfo(dataOfGetAllSets);
         }
     }
 }

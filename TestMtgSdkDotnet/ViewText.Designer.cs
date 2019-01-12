@@ -47,7 +47,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.SoleTextBox);
             this.Name = "ViewText";
-            this.Text = "ViewText";
+            this.Text = "カードテキスト";
             this.Load += new System.EventHandler(this.ViewText_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

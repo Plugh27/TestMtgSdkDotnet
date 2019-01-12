@@ -38,35 +38,14 @@ namespace TestMtgSdkDotnet
         public string id { get; set; }
 
         [JsonIgnore]
-        public bool isLand
-        {
-            get
-            {
-                if (types == null)
-                {
-                    return false;
-                }
-
-                if (types.Contains("Land"))
-                {
-                    return true;
-                }
-
-                return false;
-            }
-        }
+        public bool isLand => types != null && types.Contains("Land");
 
         [JsonIgnore]
         public bool isWhite
         {
             get
             {
-                if (colors == null)
-                {
-                    return false;
-                }
-
-                return colors.Any(s => s == "White");
+                return colors != null && colors.Any(s => s == "White");
             }
         }
 
@@ -75,12 +54,7 @@ namespace TestMtgSdkDotnet
         {
             get
             {
-                if (colors == null)
-                {
-                    return false;
-                }
-
-                return colors.Any(s => s == "Blue");
+                return colors != null && colors.Any(s => s == "Blue");
             }
         }
 
@@ -89,12 +63,7 @@ namespace TestMtgSdkDotnet
         {
             get
             {
-                if (colors == null)
-                {
-                    return false;
-                }
-
-                return colors.Any(s => s == "Black");
+                return colors != null && colors.Any(s => s == "Black");
             }
         }
 
@@ -103,12 +72,7 @@ namespace TestMtgSdkDotnet
         {
             get
             {
-                if (colors == null)
-                {
-                    return false;
-                }
-
-                return colors.Any(s => s == "Red");
+                return colors != null && colors.Any(s => s == "Red");
             }
         }
 
@@ -117,28 +81,12 @@ namespace TestMtgSdkDotnet
         {
             get
             {
-                if (colors == null)
-                {
-                    return false;
-                }
-
-                return colors.Any(s => s == "Green");
+                return colors != null && colors.Any(s => s == "Green");
             }
         }
 
         [JsonIgnore]
-        public bool isColorless
-        {
-            get
-            {
-                if (colors == null)
-                {
-                    return true;
-                }
-
-                return false;
-            }
-        }
+        public bool isColorless => colors == null;
 
         [JsonIgnore]
         public bool isMultiColor
@@ -150,12 +98,7 @@ namespace TestMtgSdkDotnet
                     return false;
                 }
 
-                if (colors.Count > 1)
-                {
-                    return true;
-                }
-
-                return false;
+                return colors.Count > 1;
             }
         }
 
@@ -169,7 +112,7 @@ namespace TestMtgSdkDotnet
                     return "";
                 }
 
-                StringBuilder sb = new StringBuilder();
+                var sb = new StringBuilder();
                 foreach (var color in colors)
                 {
                     sb.Append(color);
@@ -193,17 +136,13 @@ namespace TestMtgSdkDotnet
 
                 foreach (var foreignName in foreignNames)
                 {
-                    if (foreignName.language == Japanese)
+                    if (foreignName.language != Japanese) continue;
+                    if (foreignName.multiverseid == null)
                     {
-                        if (foreignName.multiverseid == null)
-                        {
-                            return 0;
-                        }
-                        else
-                        {
-                            return (int)foreignName.multiverseid;
-                        }
+                        return 0;
                     }
+
+                    return (int)foreignName.multiverseid;
                 }
 
                 return 0;

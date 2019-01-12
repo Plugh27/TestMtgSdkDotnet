@@ -49,14 +49,9 @@ namespace TestMtgSdkDotnet
             }
             else
             {
-                if (scryfallCardInfo.printed_text == null)
-                {
-                    SoleTextBox.Text = @"取得失敗（同名のカードが複数ある場合などに発生します）";
-                }
-                else
-                {
-                    SoleTextBox.Text = scryfallCardInfo.printed_text.Replace("\n", Environment.NewLine);
-                }
+                SoleTextBox.Text = scryfallCardInfo.printed_text == null
+                    ? @"取得失敗（同名のカードが複数ある場合などに発生します）"
+                    : scryfallCardInfo.printed_text.Replace("\n", Environment.NewLine);
             }
         }
     }

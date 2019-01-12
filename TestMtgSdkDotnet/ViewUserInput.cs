@@ -54,10 +54,12 @@ namespace TestMtgSdkDotnet
             // ディスクに保存するデータの集合に、編集中のカードが無ければ追加する
             if (_userInputCardInfos.All(s => s.id != _targetCardInfo.id))
             {
-                UserInputCardInfo userInputCardInfo = new UserInputCardInfo();
-                userInputCardInfo.id = _targetCardInfo.id;
-                userInputCardInfo.set = _targetCardInfo.set;
-                userInputCardInfo.cardName = _targetCardInfo.japaneseName + "/" + _targetCardInfo.name;
+                UserInputCardInfo userInputCardInfo = new UserInputCardInfo
+                {
+                    id = _targetCardInfo.id,
+                    set = _targetCardInfo.set,
+                    cardName = _targetCardInfo.japaneseName + "/" + _targetCardInfo.name
+                };
                 _userInputCardInfos.Add(userInputCardInfo);
             }
 
@@ -68,8 +70,7 @@ namespace TestMtgSdkDotnet
             temp.memo = MemoTextBox.Text;
 
             // ユーザー入力情報をディスクに保存する
-            // TODO: エラー処理必要かも
-            ((Form1)ParentForm).SaveUserInputInfo(_targetCardInfo.set);
+            ((Form1)ParentForm)?.SaveUserInputInfo(_targetCardInfo.set);
         }
 
         public void SelectCardInfo(List<CardInfo> cardInfos)
@@ -89,7 +90,6 @@ namespace TestMtgSdkDotnet
         {
             _userInputCardInfos = userInputCardInfos;
 
-            // TODO: フォーム更新する
             RefreshFormByMemberValue();
         }
 

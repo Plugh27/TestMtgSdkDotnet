@@ -8,6 +8,20 @@ using Newtonsoft.Json;
 
 namespace TestMtgSdkDotnet
 {
+    public class ScryfallCardFace
+    {
+        [JsonProperty("object")]
+        public string objectType { get; set; }
+        public string name { get; set; }
+        public string mana_cost { get; set; }
+        public string type_line { get; set; }
+        public string oracle_text { get; set; }
+        public List<string> colors { get; set; }
+        public string artist { get; set; }
+        public string illustration_id { get; set; }
+        public ScryfallImageUris image_uris { get; set; }
+    }
+
     public class ScryfallLegalities
     {
         public string standard { get; set; }
@@ -67,6 +81,8 @@ namespace TestMtgSdkDotnet
         public string toughness { get; set; }
         public List<string> colors { get; set; }
         public List<string> color_identity { get; set; }
+
+        public List<ScryfallCardFace> card_faces { get; set; }
 
         public ScryfallLegalities legalities { get; set; }
         public List<string> games { get; set; }

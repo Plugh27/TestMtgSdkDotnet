@@ -38,6 +38,7 @@
             this.RedCheckBox = new System.Windows.Forms.CheckBox();
             this.GreenCheckBox = new System.Windows.Forms.CheckBox();
             this.ColorGroupBox = new System.Windows.Forms.GroupBox();
+            this.LandCheckBox = new System.Windows.Forms.CheckBox();
             this.MultiCheckBox = new System.Windows.Forms.CheckBox();
             this.ColorlessCheckBox = new System.Windows.Forms.CheckBox();
             this.ColorEnableCheckBox = new System.Windows.Forms.CheckBox();
@@ -60,7 +61,6 @@
             this.CardNameLabel = new System.Windows.Forms.Label();
             this.CardNameTextBox = new System.Windows.Forms.TextBox();
             this.ClearCardNameButton = new System.Windows.Forms.Button();
-            this.LandCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.SoleListView)).BeginInit();
             this.CardListContextMenuStrip.SuspendLayout();
             this.ColorGroupBox.SuspendLayout();
@@ -169,6 +169,17 @@
             this.ColorGroupBox.TabIndex = 6;
             this.ColorGroupBox.TabStop = false;
             this.ColorGroupBox.Text = "色でフィルタ";
+            // 
+            // LandCheckBox
+            // 
+            this.LandCheckBox.AutoSize = true;
+            this.LandCheckBox.Location = new System.Drawing.Point(174, 18);
+            this.LandCheckBox.Name = "LandCheckBox";
+            this.LandCheckBox.Size = new System.Drawing.Size(36, 16);
+            this.LandCheckBox.TabIndex = 11;
+            this.LandCheckBox.Text = "土";
+            this.LandCheckBox.UseVisualStyleBackColor = true;
+            this.LandCheckBox.CheckedChanged += new System.EventHandler(this.ColorFilter_CheckedChanged);
             // 
             // MultiCheckBox
             // 
@@ -412,17 +423,6 @@
             this.ClearCardNameButton.UseVisualStyleBackColor = true;
             this.ClearCardNameButton.Click += new System.EventHandler(this.ClearCardNameButton_Click);
             // 
-            // LandCheckBox
-            // 
-            this.LandCheckBox.AutoSize = true;
-            this.LandCheckBox.Location = new System.Drawing.Point(174, 18);
-            this.LandCheckBox.Name = "LandCheckBox";
-            this.LandCheckBox.Size = new System.Drawing.Size(36, 16);
-            this.LandCheckBox.TabIndex = 11;
-            this.LandCheckBox.Text = "土";
-            this.LandCheckBox.UseVisualStyleBackColor = true;
-            this.LandCheckBox.CheckedChanged += new System.EventHandler(this.ColorFilter_CheckedChanged);
-            // 
             // ListOfCards
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -437,7 +437,7 @@
             this.Controls.Add(this.ColorGroupBox);
             this.Controls.Add(this.SoleListView);
             this.Name = "ListOfCards";
-            this.Text = "ListOfCards";
+            this.Text = "カード一覧";
             this.Load += new System.EventHandler(this.ListOfCards_Load);
             ((System.ComponentModel.ISupportInitialize)(this.SoleListView)).EndInit();
             this.CardListContextMenuStrip.ResumeLayout(false);

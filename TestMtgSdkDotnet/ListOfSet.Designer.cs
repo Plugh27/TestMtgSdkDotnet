@@ -58,7 +58,7 @@
             // ReloadSetInfoToolStripMenuItem
             // 
             this.ReloadSetInfoToolStripMenuItem.Name = "ReloadSetInfoToolStripMenuItem";
-            this.ReloadSetInfoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ReloadSetInfoToolStripMenuItem.Size = new System.Drawing.Size(129, 22);
             this.ReloadSetInfoToolStripMenuItem.Text = "再取得する";
             this.ReloadSetInfoToolStripMenuItem.Click += new System.EventHandler(this.ReloadSetInfoToolStripMenuItem_Click);
             // 
@@ -69,7 +69,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.SoleListBox);
             this.Name = "ListOfSet";
-            this.Text = "ListOfSet";
+            this.Text = "セット選択";
             this.Load += new System.EventHandler(this.ListOfSet_Load);
             this.SetListContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);

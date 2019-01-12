@@ -66,7 +66,7 @@
             this.ClientSize = new System.Drawing.Size(529, 339);
             this.Controls.Add(this.SolePictureBox);
             this.Name = "ListOfImages";
-            this.Text = "ListOfImages";
+            this.Text = "イメージ（複数）";
             this.Load += new System.EventHandler(this.ListOfImages_Load);
             ((System.ComponentModel.ISupportInitialize)(this.SolePictureBox)).EndInit();
             this.SoleContextMenuStrip.ResumeLayout(false);

@@ -9,19 +9,19 @@ using Newtonsoft.Json;
 namespace TestMtgSdkDotnet
 {
     // カードセットの情報が更新された時の処理
-    delegate void UpdateSetInfo(List<SetInfo> sets);
+    internal delegate void UpdateSetInfo(List<SetInfo> sets);
 
     // カードセットが選択された時の処理
-    delegate void SelectSetInfo(List<SetInfo> sets);
+    internal delegate void SelectSetInfo(List<SetInfo> sets);
 
     // カード情報が更新された時の処理
-    delegate void UpdateCardInfo(List<CardInfo> cardInfos, List<ScryfallCardInfo> scryfallCardInfos);
+    internal delegate void UpdateCardInfo(List<CardInfo> cardInfos, List<ScryfallCardInfo> scryfallCardInfos);
 
     // カード情報が選択された時の処理
-    delegate void SelectCardInfo(List<CardInfo> cardInfos);
+    internal delegate void SelectCardInfo(List<CardInfo> cardInfos);
 
     // ユーザ入力情報が選択された時の処理
-    delegate void UpdateUserInput(List<UserInputCardInfo> userInputCardInfos);
+    internal delegate void UpdateUserInput(List<UserInputCardInfo> userInputCardInfos);
 
     public partial class Form1 : Form
     {
@@ -62,7 +62,7 @@ namespace TestMtgSdkDotnet
             _viewText = new ViewText();
             _viewMtgwiki = new ViewMtgwiki();
 
-            _childForms = new List<Form>()
+            _childForms = new List<Form>
             {
                 _listOfSet,
                 _listOfCards,
@@ -73,7 +73,7 @@ namespace TestMtgSdkDotnet
                 _viewMtgwiki
             };
 
-            _childFormPropertyNames = new List<string>()
+            _childFormPropertyNames = new List<string>
             {
                 "ListOfSet",
                 "ListOfCards",
@@ -110,7 +110,7 @@ namespace TestMtgSdkDotnet
             _updateUserInput += _listOfCards.UpdateUserInput;
 
             // 子フォームのLocation, Sizeを復元する
-            for (int i = 0; i < _childForms.Count; i++)
+            for (var i = 0; i < _childForms.Count; i++)
             {
                 _childForms[i].Location = (Point) Properties.Settings.Default[_childFormPropertyNames[i] + "Location"];
                 _childForms[i].Size = (Size) Properties.Settings.Default[_childFormPropertyNames[i] + "Size"];
@@ -138,7 +138,7 @@ namespace TestMtgSdkDotnet
         {
             List<UserInputCardInfo> targetUserInputCardInfos = _userInputCardInfos.FindAll(s => s.set == set);
 
-            string json = JsonConvert.SerializeObject(targetUserInputCardInfos, Formatting.Indented);
+            var json = JsonConvert.SerializeObject(targetUserInputCardInfos, Formatting.Indented);
             File.WriteAllText(UserInputCardInfoFileName(set), json);
         }
 
@@ -171,7 +171,7 @@ namespace TestMtgSdkDotnet
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             // 子フォームのLocation, Sizeを保存する
-            for (int i = 0; i < _childForms.Count; i++)
+            for (var i = 0; i < _childForms.Count; i++)
             {
                 Properties.Settings.Default[_childFormPropertyNames[i] + "Location"] = _childForms[i].Location;
                 Properties.Settings.Default[_childFormPropertyNames[i] + "Size"] = _childForms[i].Size;
@@ -182,7 +182,7 @@ namespace TestMtgSdkDotnet
 
         private void InitializeData()
         {
-            DataOfGetAllSets dataOfGetAllSets = RestUtil.CheckOfficialSetData();
+            var dataOfGetAllSets = RestUtil.CheckOfficialSetData();
 
             // ディスクからユーザー入力情報を取得して一元化する
             _userInputCardInfos = new List<UserInputCardInfo>();
@@ -198,15 +198,15 @@ namespace TestMtgSdkDotnet
             _updateUserInput(_userInputCardInfos);
         }
 
-        private string UserInputCardInfoFileName(string set)
+        private static string UserInputCardInfoFileName(string set)
         {
-            string userInputCardInfoFileNameFormat = "UserInputCardInfo_{0}.json";
+            const string userInputCardInfoFileNameFormat = "UserInputCardInfo_{0}.json";
             return string.Format(userInputCardInfoFileNameFormat, set);
         }
 
-        private List<UserInputCardInfo> CheckUserInputData(string set)
+        private static IEnumerable<UserInputCardInfo> CheckUserInputData(string set)
         {
-            string fileName = UserInputCardInfoFileName(set);
+            var fileName = UserInputCardInfoFileName(set);
 
             // セット情報がディスクになければ空のデータを返す
             if (!File.Exists(fileName))
@@ -215,7 +215,7 @@ namespace TestMtgSdkDotnet
             }
 
             // セット情報をディスクから読み込んで返す
-            string json = File.ReadAllText(fileName);
+            var json = File.ReadAllText(fileName);
             return JsonConvert.DeserializeObject<List<UserInputCardInfo>>(json);
         }
     }

@@ -47,7 +47,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.SoleWebBrowser);
             this.Name = "ViewMtgwiki";
-            this.Text = "ViewMtgwiki";
+            this.Text = "Wikiページ";
             this.Load += new System.EventHandler(this.ViewMtgwiki_Load);
             this.ResumeLayout(false);
 

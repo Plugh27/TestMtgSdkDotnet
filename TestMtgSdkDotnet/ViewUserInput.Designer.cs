@@ -105,7 +105,7 @@
             this.Controls.Add(this.DraftPointLabel);
             this.Controls.Add(this.CardNameLabel);
             this.Name = "ViewUserInput";
-            this.Text = "ViewUserInput";
+            this.Text = "メモ";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ViewUserInput_FormClosed);
             this.Load += new System.EventHandler(this.ViewUserInput_Load);
             this.Leave += new System.EventHandler(this.ViewUserInput_Leave);

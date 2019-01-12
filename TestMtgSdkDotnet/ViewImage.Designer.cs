@@ -57,33 +57,33 @@
             this.ScryfallJapaneseToolStripMenuItem,
             this.ScryfallEnglishToolStripMenuItem});
             this.ImageContextMenuStrip.Name = "ImageContextMenuStrip";
-            this.ImageContextMenuStrip.Size = new System.Drawing.Size(181, 114);
+            this.ImageContextMenuStrip.Size = new System.Drawing.Size(173, 92);
             // 
             // JapaneseToolStripMenuItem
             // 
             this.JapaneseToolStripMenuItem.Name = "JapaneseToolStripMenuItem";
-            this.JapaneseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.JapaneseToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.JapaneseToolStripMenuItem.Text = "日本語";
             this.JapaneseToolStripMenuItem.Click += new System.EventHandler(this.JapaneseToolStripMenuItem_Click);
             // 
             // EnglishToolStripMenuItem
             // 
             this.EnglishToolStripMenuItem.Name = "EnglishToolStripMenuItem";
-            this.EnglishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.EnglishToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.EnglishToolStripMenuItem.Text = "英語";
             this.EnglishToolStripMenuItem.Click += new System.EventHandler(this.EnglishToolStripMenuItem_Click);
             // 
             // ScryfallJapaneseToolStripMenuItem
             // 
             this.ScryfallJapaneseToolStripMenuItem.Name = "ScryfallJapaneseToolStripMenuItem";
-            this.ScryfallJapaneseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ScryfallJapaneseToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.ScryfallJapaneseToolStripMenuItem.Text = "Scryfall（日本語）";
             this.ScryfallJapaneseToolStripMenuItem.Click += new System.EventHandler(this.ScryfallJapaneseToolStripMenuItem_Click);
             // 
             // ScryfallEnglishToolStripMenuItem
             // 
             this.ScryfallEnglishToolStripMenuItem.Name = "ScryfallEnglishToolStripMenuItem";
-            this.ScryfallEnglishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ScryfallEnglishToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.ScryfallEnglishToolStripMenuItem.Text = "Scryfall（英語）";
             this.ScryfallEnglishToolStripMenuItem.Click += new System.EventHandler(this.ScryfallEnglishToolStripMenuItem_Click);
             // 
@@ -94,7 +94,7 @@
             this.ClientSize = new System.Drawing.Size(439, 289);
             this.Controls.Add(this.SolePictureBox);
             this.Name = "ViewImage";
-            this.Text = "ViewImage";
+            this.Text = "カード画像";
             this.Load += new System.EventHandler(this.ViewImage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.SolePictureBox)).EndInit();
             this.ImageContextMenuStrip.ResumeLayout(false);

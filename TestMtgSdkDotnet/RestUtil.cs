@@ -23,12 +23,12 @@ namespace TestMtgSdkDotnet
         /// <summary>
         /// 公式APIで取得したカード情報を保存しているファイル名、パラメータはセットのコード（ドミナリアならDOMなど）
         /// </summary>
-        private static string officialCardInfoFileNameFormat = "OfficialCardInfo_{0}.json";
+        private const string OfficialCardInfoFileNameFormat = "OfficialCardInfo_{0}.json";
 
         /// <summary>
         /// ScryfallのAPIで取得したカード情報を保存しているファイル名。パラメータはセットのコード（ドミナリアならDOMなど）
         /// </summary>
-        private static string scryfallCardInfoFileNameFormat = "ScryfallCardInfo_{0}.json";
+        private const string ScryfallCardInfoFileNameFormat = "ScryfallCardInfo_{0}.json";
 
         public static DataOfGetAllSets CheckOfficialSetData()
         {
@@ -54,7 +54,7 @@ namespace TestMtgSdkDotnet
 
         public static string CardInfosFileName(string set)
         {
-            return String.Format(officialCardInfoFileNameFormat, set);
+            return string.Format(OfficialCardInfoFileNameFormat, set);
         }
 
         public static List<CardInfo> CheckOfficialData(string set)
@@ -88,7 +88,7 @@ namespace TestMtgSdkDotnet
 
         public static string ScryfallCardInfosFileName(string set)
         {
-            return String.Format(scryfallCardInfoFileNameFormat, set);
+            return String.Format(ScryfallCardInfoFileNameFormat, set);
         }
 
         public static List<ScryfallCardInfo> CheckScryfallData(string set)
@@ -113,17 +113,18 @@ namespace TestMtgSdkDotnet
             return GetHttpData(url);
         }
 
-
         private static void GetScryfallCardInfo(string set, out List<ScryfallCardInfo> scryfallCardInfos)
         {
-            string ScryfallSetFormat = "https://api.scryfall.com/cards/search?order=set&q=e%3A{0}&unique=prints&include_multilingual=true";
+            const string scryfallSetFormat = "https://api.scryfall.com/cards/search?order=set&q=e%3A{0}&unique=prints&include_multilingual=true";
 
             scryfallCardInfos = new List<ScryfallCardInfo>();
 
-            ScryfallResponseData scryfallResponseData = new ScryfallResponseData();
-            scryfallResponseData.has_more = true;
-            scryfallResponseData.next_page = String.Format(ScryfallSetFormat, set);
-            while (scryfallResponseData.has_more == true)
+            ScryfallResponseData scryfallResponseData = new ScryfallResponseData
+            {
+                has_more = true,
+                next_page = string.Format(scryfallSetFormat, set)
+            };
+            while (scryfallResponseData.has_more)
             {
                 // APIからJSONを取得して、ドットネット型に変換する
                 string scryfallResponse = GetHttpData(Regex.Unescape(scryfallResponseData.next_page));

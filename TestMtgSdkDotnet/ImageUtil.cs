@@ -14,13 +14,13 @@ namespace TestMtgSdkDotnet
         /// <summary>
         /// ローカルに保存するカードの画像ファイル名。パラメータはmultiverseId
         /// </summary>
-        private static readonly string OfficialCardImageFileNameFormat = "Image{0}.jfif";
+        private const string OfficialCardImageFileNameFormat = "Image{0}.jfif";
 
         /// <summary>
         /// ローカルに保存するScryfallの画像ファイル名。パラメータはScryfallのidと画像タイプ
         /// （例） Scryfall_0503c55d-74bb-4165-9273-127c01bb2214_border_crop.jpg
         /// </summary>
-        private static readonly string ScryfallCardImageFileNameFormat = "Scryfall_{0}_{1}.jpg";
+        private const string ScryfallCardImageFileNameFormat = "Scryfall_{0}_{1}.jpg";
 
         private static string CardImageFileName(int multiverseId)
         {
@@ -31,13 +31,6 @@ namespace TestMtgSdkDotnet
         private static string ScryfallCardImageBorderCropFileName(ScryfallCardInfo scryfallCardInfo)
         {
             return string.Format(ScryfallCardImageFileNameFormat, scryfallCardInfo.id, "border-crop");
-        }
-
-        private static string OfficialCardImageUriFormat = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={0}&type=card";
-
-        private static string OfficialCardImageUri(string multiverseId)
-        {
-            return string.Format(OfficialCardImageUriFormat, multiverseId);
         }
 
         public static void CheckEnglishCardImage(CardInfo cardInfo)
@@ -58,7 +51,21 @@ namespace TestMtgSdkDotnet
 
         public static void CheckScryfallBorderCropCardImage(ScryfallCardInfo scryfallCardInfo)
         {
-            string uri = scryfallCardInfo.image_uris.border_crop;
+            // TODO: 定数化、各カードタイプへの対応（特に両面のカード画像表示など）
+            string uri;
+            switch (scryfallCardInfo.layout)
+            {
+                case "transform":
+                    uri = scryfallCardInfo.card_faces[0].image_uris.border_crop;
+                    break;
+                case "split":
+                    uri = scryfallCardInfo.image_uris.border_crop;
+                    break;
+                default:
+                    uri = scryfallCardInfo.image_uris.border_crop;
+                    break;
+            }
+
             string filePath = ScryfallCardImageBorderCropFileName(scryfallCardInfo);
 
             CheckCardImage(uri, filePath);

@@ -44,7 +44,7 @@ namespace TestMtgSdkDotnet
             // リストビューの幅リスト
             List<int> widthList = new List<int>
             {
-                120,
+                140,
                 120,
                 40,
                 80,
@@ -61,7 +61,7 @@ namespace TestMtgSdkDotnet
         {
             CardInfo cardList = (CardInfo)e.Item.RowObject;
 
-            List<CardInfo> cardInfos = new List<CardInfo>(){cardList};
+            List<CardInfo> cardInfos = new List<CardInfo> {cardList};
 
             ((Form1)MdiParent).CallSelectCard(cardInfos);
 
@@ -130,18 +130,13 @@ namespace TestMtgSdkDotnet
             List<CardInfo> filteredCardInfos = new List<CardInfo>();
             foreach (var cardInfo in cardInfos)
             {
-                // 英語名と部分一致していたら有効
-                if (cardInfo.name.IndexOf(CardNameTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
-                {
-                    filteredCardInfos.Add(cardInfo);
-                    continue;
-                }
+                bool isMatchEnglish = cardInfo.name.IndexOf(CardNameTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+                bool isMatchJapanese = cardInfo.japaneseName.IndexOf(CardNameTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
 
-                // 日本語名と部分一致していたら有効
-                if (cardInfo.japaneseName.IndexOf(CardNameTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0)
+                // 英語または日本語のどちらかに一致していたら表示するデータに含める
+                if (isMatchEnglish || isMatchJapanese)
                 {
                     filteredCardInfos.Add(cardInfo);
-                    continue;
                 }
             }
 
@@ -194,11 +189,9 @@ namespace TestMtgSdkDotnet
                 bool isEnable = false;
                 foreach (var targetTypeString in targetTypeStringList)
                 {
-                    if (cardInfo.types.Any(s => s == targetTypeString))
-                    {
-                        isEnable = true;
-                        break;
-                    }
+                    if (cardInfo.types.All(s => s != targetTypeString)) continue;
+                    isEnable = true;
+                    break;
                 }
 
                 if (isEnable)
@@ -254,11 +247,9 @@ namespace TestMtgSdkDotnet
                 bool isEnable = false;
                 foreach (var targetRarityString in targetRarityStringList)
                 {
-                    if (cardInfo.rarity == targetRarityString)
-                    {
-                        isEnable = true;
-                        break;
-                    }
+                    if (cardInfo.rarity != targetRarityString) continue;
+                    isEnable = true;
+                    break;
                 }
 
                 if (isEnable)
@@ -318,33 +309,27 @@ namespace TestMtgSdkDotnet
             List<CardInfo> filteredCardInfos = new List<CardInfo>();
             foreach (var cardInfo in cardInfos)
             {
-                bool isEnable = true;
 
                 // AND条件なら、指定されている色が1つでもなければ無効にする
+                bool isEnable = true;
                 if (ColorAndRadioButton.Checked)
                 {
-                    isEnable = true;
                     foreach (var targetProperty in searchPropertyInfoList)
                     {
-                        if (!(bool) targetProperty.GetValue(cardInfo))
-                        {
-                            isEnable = false;
-                            break;
-                        }
+                        if ((bool) targetProperty.GetValue(cardInfo)) continue;
+                        isEnable = false;
+                        break;
                     }
                 }
-
-                // OR条件なら、指定されている色が1つでもあれば有効にする
-                if (ColorOrRadioButton.Checked)
+                else if (ColorOrRadioButton.Checked)
                 {
+                    // OR条件なら、指定されている色が1つでもあれば有効にする
                     isEnable = false;
                     foreach (var targetProperty in searchPropertyInfoList)
                     {
-                        if ((bool)targetProperty.GetValue(cardInfo))
-                        {
-                            isEnable = true;
-                            break;
-                        }
+                        if (!(bool) targetProperty.GetValue(cardInfo)) continue;
+                        isEnable = true;
+                        break;
                     }
                 }
 
@@ -360,13 +345,7 @@ namespace TestMtgSdkDotnet
 
         private List<CardInfo> CardInfosFromSelectedObjects()
         {
-            List<CardInfo> selectedCardInfos = new List<CardInfo>();
-            foreach (var item in SoleListView.SelectedObjects)
-            {
-                selectedCardInfos.Add((CardInfo)item);
-            }
-
-            return selectedCardInfos;
+            return SoleListView.SelectedObjects.Cast<CardInfo>().ToList();
         }
 
         private void SoleListView_SelectedIndexChanged(object sender, EventArgs e)
