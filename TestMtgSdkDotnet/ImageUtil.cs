@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace TestMtgSdkDotnet
 {
-    class ImageUtil
+    internal class ImageUtil
     {
         /// <summary>
         /// ローカルに保存するカードの画像ファイル名。パラメータはmultiverseId
@@ -35,16 +35,16 @@ namespace TestMtgSdkDotnet
 
         public static void CheckEnglishCardImage(CardInfo cardInfo)
         {
-            string uri = cardInfo.imageUrl;
-            string filePath = CardImageFileName(cardInfo.multiverseid);
+            var uri = cardInfo.imageUrl;
+            var filePath = CardImageFileName(cardInfo.multiverseid);
 
             CheckCardImage(uri, filePath);
         }
 
         public static void CheckJapaneseCardImage(CardInfo cardInfo)
         {
-            string uri = cardInfo.imageUrl;
-            string filePath = CardImageFileName(cardInfo.japaneseMultiverseId);
+            var uri = cardInfo.imageUrl;
+            var filePath = CardImageFileName(cardInfo.japaneseMultiverseId);
 
             CheckCardImage(uri, filePath);
         }
@@ -66,26 +66,26 @@ namespace TestMtgSdkDotnet
                     break;
             }
 
-            string filePath = ScryfallCardImageBorderCropFileName(scryfallCardInfo);
+            var filePath = ScryfallCardImageBorderCropFileName(scryfallCardInfo);
 
             CheckCardImage(uri, filePath);
         }
 
         public static Image ImageEnglishCard(CardInfo cardInfo)
         {
-            string filePath = CardImageFileName(cardInfo.multiverseid);
+            var filePath = CardImageFileName(cardInfo.multiverseid);
             return Image.FromFile(filePath);
         }
 
         public static Image ImageJapaneseCard(CardInfo cardInfo)
         {
-            string filePath = CardImageFileName(cardInfo.japaneseMultiverseId);
+            var filePath = CardImageFileName(cardInfo.japaneseMultiverseId);
             return Image.FromFile(filePath);
         }
 
         public static Image ImageScryfallBorderCropCard(ScryfallCardInfo scryfallCardInfo)
         {
-            string filePath = ScryfallCardImageBorderCropFileName(scryfallCardInfo);
+            var filePath = ScryfallCardImageBorderCropFileName(scryfallCardInfo);
             return Image.FromFile(filePath);
         }
 
@@ -101,12 +101,12 @@ namespace TestMtgSdkDotnet
         public static void ShowCardImage(List<CardInfo> cardInfos, PictureBox pictureBox)
         {
             // 指定されたカードの画像データを集める。既にローカルファイルになっている前提で処理する。
-            List<Image> images = new List<Image>(); // TODO: 解放の手順検討する
-            int totalWidth = 0;
-            int height = 0;
+            var images = new List<Image>(); // TODO: 解放の手順検討する
+            var totalWidth = 0;
+            var height = 0;
             foreach (var cardInfo in cardInfos)
             {
-                Image image = Image.FromFile(CardImageFileName(cardInfo.japaneseMultiverseId));
+                var image = Image.FromFile(CardImageFileName(cardInfo.japaneseMultiverseId));
                 images.Add(image);
                 totalWidth += image.Width;
                 height = image.Height;
@@ -118,7 +118,7 @@ namespace TestMtgSdkDotnet
             using (var canvas = Graphics.FromImage(bitmap))
             {
                 canvas.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                int horizontalPosition = 0;
+                var horizontalPosition = 0;
                 foreach (var image in images)
                 {
                     canvas.DrawImage(image, new Point(horizontalPosition, 0));
@@ -135,9 +135,9 @@ namespace TestMtgSdkDotnet
         private static void DownloadCardImage(string targetUrl, string filePath)
         {
             // TODO: なんか後処理いらないのか確認する
-            WebRequest requestPic = WebRequest.Create(targetUrl);
-            WebResponse responsePic = requestPic.GetResponse();
-            Image webImage = Image.FromStream(responsePic.GetResponseStream() ?? throw new InvalidOperationException());
+            var requestPic = WebRequest.Create(targetUrl);
+            var responsePic = requestPic.GetResponse();
+            var webImage = Image.FromStream(responsePic.GetResponseStream() ?? throw new InvalidOperationException());
 
             webImage.Save(filePath, ImageFormat.Png);
         }

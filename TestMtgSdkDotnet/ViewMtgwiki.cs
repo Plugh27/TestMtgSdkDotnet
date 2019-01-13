@@ -24,7 +24,7 @@ namespace TestMtgSdkDotnet
                 return;
             }
 
-            CardInfo cardInfo = cardInfos.First();
+            var cardInfo = cardInfos.First();
             SoleWebBrowser.Url = new Uri(Util.MtgwikiUrl(cardInfo));
         }
     }

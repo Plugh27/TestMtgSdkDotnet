@@ -32,7 +32,7 @@ namespace TestMtgSdkDotnet
             SoleListView.ShowGroups = false;
 
             // リストビューの名前リスト
-            List<string> nameList = new List<string>
+            var nameList = new List<string>
             {
                 "name",
                 "japaneseName",
@@ -42,7 +42,7 @@ namespace TestMtgSdkDotnet
             };
 
             // リストビューの幅リスト
-            List<int> widthList = new List<int>
+            var widthList = new List<int>
             {
                 140,
                 120,
@@ -59,9 +59,9 @@ namespace TestMtgSdkDotnet
 
         private void SoleListView_HyperlinkClicked(object sender, BrightIdeasSoftware.HyperlinkClickedEventArgs e)
         {
-            CardInfo cardList = (CardInfo)e.Item.RowObject;
+            var cardList = (CardInfo)e.Item.RowObject;
 
-            List<CardInfo> cardInfos = new List<CardInfo> {cardList};
+            var cardInfos = new List<CardInfo> {cardList};
 
             ((Form1)MdiParent).CallSelectCard(cardInfos);
 
@@ -97,7 +97,7 @@ namespace TestMtgSdkDotnet
             {
                 foreach (var cardInfo in _showCardInfos)
                 {
-                    UserInputCardInfo userInputCardInfo = _userInputCardInfos.FirstOrDefault(
+                    var userInputCardInfo = _userInputCardInfos.FirstOrDefault(
                         s => s.id == cardInfo.id);
                     if (userInputCardInfo != null)
                     {
@@ -127,11 +127,11 @@ namespace TestMtgSdkDotnet
             }
 
             // 文字が入力されていたら、一致する部分があるCardInfoのみ残す
-            List<CardInfo> filteredCardInfos = new List<CardInfo>();
+            var filteredCardInfos = new List<CardInfo>();
             foreach (var cardInfo in cardInfos)
             {
-                bool isMatchEnglish = cardInfo.name.IndexOf(CardNameTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
-                bool isMatchJapanese = cardInfo.japaneseName.IndexOf(CardNameTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+                var isMatchEnglish = cardInfo.name.IndexOf(CardNameTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
+                var isMatchJapanese = cardInfo.japaneseName.IndexOf(CardNameTextBox.Text, StringComparison.OrdinalIgnoreCase) >= 0;
 
                 // 英語または日本語のどちらかに一致していたら表示するデータに含める
                 if (isMatchEnglish || isMatchJapanese)
@@ -152,7 +152,7 @@ namespace TestMtgSdkDotnet
             }
 
             // タイプのチェックボックスのリスト
-            List<CheckBox> checkBoxList =
+            var checkBoxList =
                 new List<CheckBox>
                 {
                     CreatureCheckBox,
@@ -163,7 +163,7 @@ namespace TestMtgSdkDotnet
                 };
 
             // タイプの文字列のリスト
-            List<string> typeStringList =
+            var typeStringList =
                 new List<string>
                 {
                     "Creature",
@@ -174,8 +174,8 @@ namespace TestMtgSdkDotnet
                 };
 
             // フィルタ対象の文字列のリスト
-            List<string> targetTypeStringList = new List<string>();
-            for (int i = 0; i < checkBoxList.Count; i++)
+            var targetTypeStringList = new List<string>();
+            for (var i = 0; i < checkBoxList.Count; i++)
             {
                 if (checkBoxList[i].Checked)
                 {
@@ -183,10 +183,10 @@ namespace TestMtgSdkDotnet
                 }
             }
 
-            List<CardInfo> filteredCardInfos = new List<CardInfo>();
+            var filteredCardInfos = new List<CardInfo>();
             foreach (var cardInfo in cardInfos)
             {
-                bool isEnable = false;
+                var isEnable = false;
                 foreach (var targetTypeString in targetTypeStringList)
                 {
                     if (cardInfo.types.All(s => s != targetTypeString)) continue;
@@ -212,7 +212,7 @@ namespace TestMtgSdkDotnet
             }
 
             // 希少度のチェックボックスのリスト
-            List<CheckBox> checkBoxList =
+            var checkBoxList =
                 new List<CheckBox>
                 {
                     CommonCheckBox,
@@ -222,7 +222,7 @@ namespace TestMtgSdkDotnet
                 };
 
             // 希少度に対応する文字列のリスト
-            List<string> rarityStringList =
+            var rarityStringList =
                 new List<string>
                 {
                     "Common",
@@ -232,8 +232,8 @@ namespace TestMtgSdkDotnet
                 };
 
             // フィルタ対象の文字列のリスト
-            List<string> targetRarityStringList = new List<string>();
-            for (int i = 0; i < checkBoxList.Count; i++)
+            var targetRarityStringList = new List<string>();
+            for (var i = 0; i < checkBoxList.Count; i++)
             {
                 if (checkBoxList[i].Checked)
                 {
@@ -241,10 +241,10 @@ namespace TestMtgSdkDotnet
                 }
             }
 
-            List<CardInfo> filteredCardInfos = new List<CardInfo>();
+            var filteredCardInfos = new List<CardInfo>();
             foreach (var cardInfo in cardInfos)
             {
-                bool isEnable = false;
+                var isEnable = false;
                 foreach (var targetRarityString in targetRarityStringList)
                 {
                     if (cardInfo.rarity != targetRarityString) continue;
@@ -270,7 +270,7 @@ namespace TestMtgSdkDotnet
             }
 
             // 色のチェックボックスのリスト
-            List<CheckBox> checkBoxList =
+            var checkBoxList =
                 new List<CheckBox>
                 {
                     WhiteCheckBox,
@@ -284,7 +284,7 @@ namespace TestMtgSdkDotnet
                 };
 
             // 色のチェックボックスに対応するプロパティ名のリスト
-            List<PropertyInfo> propertyNameList = new List<PropertyInfo>
+            var propertyNameList = new List<PropertyInfo>
             {
                 typeof(CardInfo).GetProperty("isWhite"),
                 typeof(CardInfo).GetProperty("isBlue"),
@@ -297,8 +297,8 @@ namespace TestMtgSdkDotnet
             };
 
             // フィルタ対象の色のリスト
-            List<PropertyInfo> searchPropertyInfoList = new List<PropertyInfo>();
-            for (int i = 0; i < checkBoxList.Count; i++)
+            var searchPropertyInfoList = new List<PropertyInfo>();
+            for (var i = 0; i < checkBoxList.Count; i++)
             {
                 if (checkBoxList[i].Checked)
                 {
@@ -306,12 +306,12 @@ namespace TestMtgSdkDotnet
                 }
             }
 
-            List<CardInfo> filteredCardInfos = new List<CardInfo>();
+            var filteredCardInfos = new List<CardInfo>();
             foreach (var cardInfo in cardInfos)
             {
 
                 // AND条件なら、指定されている色が1つでもなければ無効にする
-                bool isEnable = true;
+                var isEnable = true;
                 if (ColorAndRadioButton.Checked)
                 {
                     foreach (var targetProperty in searchPropertyInfoList)
@@ -350,14 +350,14 @@ namespace TestMtgSdkDotnet
 
         private void SoleListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<CardInfo> selectedCardInfos = CardInfosFromSelectedObjects();
+            var selectedCardInfos = CardInfosFromSelectedObjects();
 
             ((Form1) MdiParent).CallSelectCard(selectedCardInfos);
         }
 
         private void OpenJapaneseWikiToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            List<CardInfo> selectedCardInfos = CardInfosFromSelectedObjects();
+            var selectedCardInfos = CardInfosFromSelectedObjects();
 
             foreach (var cardInfo in selectedCardInfos)
             {

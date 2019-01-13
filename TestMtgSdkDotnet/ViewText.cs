@@ -40,9 +40,9 @@ namespace TestMtgSdkDotnet
                 return;
             }
 
-            CardInfo cardInfo = cardInfos.First();
+            var cardInfo = cardInfos.First();
 
-            ScryfallCardInfo scryfallCardInfo = Util.FindEqualingJapaneseScryfallCardInfo(cardInfo, _scryfallCardInfos);
+            var scryfallCardInfo = Util.FindEqualingJapaneseScryfallCardInfo(cardInfo, _scryfallCardInfos);
             if (scryfallCardInfo == null)
             {
                 SoleTextBox.Text = @"取得失敗（同名のカードが複数ある場合などに発生します）";

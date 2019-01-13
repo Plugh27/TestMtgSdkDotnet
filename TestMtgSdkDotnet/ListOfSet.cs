@@ -39,7 +39,7 @@ namespace TestMtgSdkDotnet
 
         private void SoleListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<SetInfo> sets = new List<SetInfo>();
+            var sets = new List<SetInfo>();
             foreach (var item in SoleListBox.SelectedItems)
             {
                 sets.Add((SetInfo) item);
@@ -50,7 +50,7 @@ namespace TestMtgSdkDotnet
 
         private void ReloadSetInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SetInfo setInfo = (SetInfo) SoleListBox.SelectedItem;
+            var setInfo = (SetInfo) SoleListBox.SelectedItem;
 
             // 選択されていたセットの、カード情報を削除する
             File.Delete(RestUtil.CardInfosFileName(setInfo.code));
@@ -58,7 +58,7 @@ namespace TestMtgSdkDotnet
 
             // セット情報を再取得する
             File.Delete(RestUtil.OfficialSetInfoFileName);
-            DataOfGetAllSets dataOfGetAllSets = RestUtil.CheckOfficialSetData();
+            var dataOfGetAllSets = RestUtil.CheckOfficialSetData();
 
             // TODO: エラー処理必要かも
             ((Form1)ParentForm)?.CallUpdateSetInfo(dataOfGetAllSets);

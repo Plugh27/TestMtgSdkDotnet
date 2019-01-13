@@ -136,7 +136,7 @@ namespace TestMtgSdkDotnet
 
         public void SaveUserInputInfo(string set)
         {
-            List<UserInputCardInfo> targetUserInputCardInfos = _userInputCardInfos.FindAll(s => s.set == set);
+            var targetUserInputCardInfos = _userInputCardInfos.FindAll(s => s.set == set);
 
             var json = JsonConvert.SerializeObject(targetUserInputCardInfos, Formatting.Indented);
             File.WriteAllText(UserInputCardInfoFileName(set), json);

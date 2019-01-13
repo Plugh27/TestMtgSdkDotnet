@@ -35,6 +35,7 @@
             this.EnglishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ScryfallJapaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ScryfallEnglishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.CopyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.SolePictureBox)).BeginInit();
             this.ImageContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -52,40 +53,48 @@
             // ImageContextMenuStrip
             // 
             this.ImageContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.CopyToClipboardToolStripMenuItem,
             this.JapaneseToolStripMenuItem,
             this.EnglishToolStripMenuItem,
             this.ScryfallJapaneseToolStripMenuItem,
             this.ScryfallEnglishToolStripMenuItem});
             this.ImageContextMenuStrip.Name = "ImageContextMenuStrip";
-            this.ImageContextMenuStrip.Size = new System.Drawing.Size(173, 92);
+            this.ImageContextMenuStrip.Size = new System.Drawing.Size(181, 136);
             // 
             // JapaneseToolStripMenuItem
             // 
             this.JapaneseToolStripMenuItem.Name = "JapaneseToolStripMenuItem";
-            this.JapaneseToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.JapaneseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.JapaneseToolStripMenuItem.Text = "日本語";
             this.JapaneseToolStripMenuItem.Click += new System.EventHandler(this.JapaneseToolStripMenuItem_Click);
             // 
             // EnglishToolStripMenuItem
             // 
             this.EnglishToolStripMenuItem.Name = "EnglishToolStripMenuItem";
-            this.EnglishToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.EnglishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.EnglishToolStripMenuItem.Text = "英語";
             this.EnglishToolStripMenuItem.Click += new System.EventHandler(this.EnglishToolStripMenuItem_Click);
             // 
             // ScryfallJapaneseToolStripMenuItem
             // 
             this.ScryfallJapaneseToolStripMenuItem.Name = "ScryfallJapaneseToolStripMenuItem";
-            this.ScryfallJapaneseToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.ScryfallJapaneseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ScryfallJapaneseToolStripMenuItem.Text = "Scryfall（日本語）";
             this.ScryfallJapaneseToolStripMenuItem.Click += new System.EventHandler(this.ScryfallJapaneseToolStripMenuItem_Click);
             // 
             // ScryfallEnglishToolStripMenuItem
             // 
             this.ScryfallEnglishToolStripMenuItem.Name = "ScryfallEnglishToolStripMenuItem";
-            this.ScryfallEnglishToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.ScryfallEnglishToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.ScryfallEnglishToolStripMenuItem.Text = "Scryfall（英語）";
             this.ScryfallEnglishToolStripMenuItem.Click += new System.EventHandler(this.ScryfallEnglishToolStripMenuItem_Click);
+            // 
+            // CopyToClipboardToolStripMenuItem
+            // 
+            this.CopyToClipboardToolStripMenuItem.Name = "CopyToClipboardToolStripMenuItem";
+            this.CopyToClipboardToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.CopyToClipboardToolStripMenuItem.Text = "クリップボードにコピー";
+            this.CopyToClipboardToolStripMenuItem.Click += new System.EventHandler(this.CopyToClipboardToolStripMenuItem_Click);
             // 
             // ViewImage
             // 
@@ -96,6 +105,7 @@
             this.Name = "ViewImage";
             this.Text = "カード画像";
             this.Load += new System.EventHandler(this.ViewImage_Load);
+            this.SizeChanged += new System.EventHandler(this.ViewImage_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.SolePictureBox)).EndInit();
             this.ImageContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -110,5 +120,6 @@
         private System.Windows.Forms.ToolStripMenuItem EnglishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ScryfallJapaneseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ScryfallEnglishToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem CopyToClipboardToolStripMenuItem;
     }
 }

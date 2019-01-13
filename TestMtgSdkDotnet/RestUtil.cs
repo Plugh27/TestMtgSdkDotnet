@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace TestMtgSdkDotnet
 {
-    class RestUtil
+    internal class RestUtil
     {
         /// <summary>
         /// 公式APIのセット全体を取得するURL
@@ -35,16 +35,16 @@ namespace TestMtgSdkDotnet
             // セット情報がディスクになければ、Webから取得してディスクに保存する
             if (!File.Exists(OfficialSetInfoFileName))
             {
-                string tempJson = GetHttpData(OfficialSetInfoUrl);
-                DataOfGetAllSets tempObject = JsonConvert.DeserializeObject<DataOfGetAllSets>(tempJson);
+                var tempJson = GetHttpData(OfficialSetInfoUrl);
+                var tempObject = JsonConvert.DeserializeObject<DataOfGetAllSets>(tempJson);
 
-                string serializedJson = JsonConvert.SerializeObject(tempObject, Formatting.Indented);
+                var serializedJson = JsonConvert.SerializeObject(tempObject, Formatting.Indented);
                 File.WriteAllText(OfficialSetInfoFileName, serializedJson);
             }
 
             // セット情報をディスクから取得して返す
-            string jsonOfGetAllSets = File.ReadAllText(OfficialSetInfoFileName);
-            DataOfGetAllSets dataOfGetAllSets = JsonConvert.DeserializeObject<DataOfGetAllSets>(jsonOfGetAllSets);
+            var jsonOfGetAllSets = File.ReadAllText(OfficialSetInfoFileName);
+            var dataOfGetAllSets = JsonConvert.DeserializeObject<DataOfGetAllSets>(jsonOfGetAllSets);
 
             // セット情報をリリース順に並べる
             dataOfGetAllSets.sets = dataOfGetAllSets.sets.OrderByDescending(s => s.releaseDate).ToList();
@@ -59,56 +59,58 @@ namespace TestMtgSdkDotnet
 
         public static List<CardInfo> CheckOfficialData(string set)
         {
-            string oneSetCardInfosFileName = CardInfosFileName(set);
+            var oneSetCardInfosFileName = CardInfosFileName(set);
 
             // ディスクにデータがあるかチェックして、なければネットから取得する
-            if (!File.Exists(oneSetCardInfosFileName))
+            if (File.Exists(oneSetCardInfosFileName))
             {
-                List<CardInfo> oneSetCardInfos = new List<CardInfo>();
-                for (int page = 1; page < 10; page++)
-                {
-                    string jsonCardInfo = GetCardInfo(page, set);
-                    ApiResponseData apiResponseData = JsonConvert.DeserializeObject<ApiResponseData>(jsonCardInfo);
-                    if (apiResponseData.cards.Count == 0)
-                    {
-                        break;
-                    }
-
-                    oneSetCardInfos.AddRange(apiResponseData.cards);
-                }
-
-                // 取得したデータをディスクに保存する
-                string jsonOneSetCardInfos = JsonConvert.SerializeObject(oneSetCardInfos, Formatting.Indented);
-                File.WriteAllText(oneSetCardInfosFileName, jsonOneSetCardInfos);
+                return JsonConvert.DeserializeObject<List<CardInfo>>(File.ReadAllText(oneSetCardInfosFileName));
             }
 
-            // ディスクからデータを読み込んで返す
+            var oneSetCardInfos = new List<CardInfo>();
+            for (var page = 1; page < 10; page++)
+            {
+                var jsonCardInfo = GetCardInfo(page, set);
+                var apiResponseData = JsonConvert.DeserializeObject<ApiResponseData>(jsonCardInfo);
+                if (apiResponseData.cards.Count == 0)
+                {
+                    break;
+                }
+
+                oneSetCardInfos.AddRange(apiResponseData.cards);
+            }
+
+            // 取得したデータをディスクに保存する
+            var jsonOneSetCardInfos = JsonConvert.SerializeObject(oneSetCardInfos, Formatting.Indented);
+            File.WriteAllText(oneSetCardInfosFileName, jsonOneSetCardInfos);
+
             return JsonConvert.DeserializeObject<List<CardInfo>>(File.ReadAllText(oneSetCardInfosFileName));
         }
 
         public static string ScryfallCardInfosFileName(string set)
         {
-            return String.Format(ScryfallCardInfoFileNameFormat, set);
+            return string.Format(ScryfallCardInfoFileNameFormat, set);
         }
 
         public static List<ScryfallCardInfo> CheckScryfallData(string set)
         {
-            string scryfallFileName = ScryfallCardInfosFileName(set);
+            var scryfallFileName = ScryfallCardInfosFileName(set);
 
             // ディスクにデータがあるかチェックして、なければネットから取得してディスクに書き出す
-            if (!File.Exists(scryfallFileName))
+            if (File.Exists(scryfallFileName))
             {
-                GetScryfallCardInfo(set, out var scryfallCardInfos);
-                File.WriteAllText(scryfallFileName, JsonConvert.SerializeObject(scryfallCardInfos, Formatting.Indented));
+                return JsonConvert.DeserializeObject<List<ScryfallCardInfo>>(File.ReadAllText(scryfallFileName));
             }
 
-            // ディスクからデータを読み込んで返す
+            GetScryfallCardInfo(set, out var scryfallCardInfos);
+            File.WriteAllText(scryfallFileName, JsonConvert.SerializeObject(scryfallCardInfos, Formatting.Indented));
+
             return JsonConvert.DeserializeObject<List<ScryfallCardInfo>>(File.ReadAllText(scryfallFileName));
         }
 
         public static string GetCardInfo(int page, string setName)
         {
-            string url = "https://api.magicthegathering.io/v1/cards?page=" + page + "&set=" + setName;
+            var url = "https://api.magicthegathering.io/v1/cards?page=" + page + "&set=" + setName;
 
             return GetHttpData(url);
         }
@@ -119,7 +121,7 @@ namespace TestMtgSdkDotnet
 
             scryfallCardInfos = new List<ScryfallCardInfo>();
 
-            ScryfallResponseData scryfallResponseData = new ScryfallResponseData
+            var scryfallResponseData = new ScryfallResponseData
             {
                 has_more = true,
                 next_page = string.Format(scryfallSetFormat, set)
@@ -127,7 +129,7 @@ namespace TestMtgSdkDotnet
             while (scryfallResponseData.has_more)
             {
                 // APIからJSONを取得して、ドットネット型に変換する
-                string scryfallResponse = GetHttpData(Regex.Unescape(scryfallResponseData.next_page));
+                var scryfallResponse = GetHttpData(Regex.Unescape(scryfallResponseData.next_page));
                 scryfallResponseData = JsonConvert.DeserializeObject<ScryfallResponseData>(scryfallResponse);
 
                 // 取得したデータから、日本語と英語のデータのみ抽出する
@@ -143,12 +145,12 @@ namespace TestMtgSdkDotnet
 
         private static string GetHttpData(string uri)
         {
-            WebClient wc = new WebClient();
+            var wc = new WebClient();
 
-            Stream st = wc.OpenRead(uri);
-            StreamReader sr = new StreamReader(st ?? throw new InvalidOperationException());
+            var st = wc.OpenRead(uri);
+            var sr = new StreamReader(st ?? throw new InvalidOperationException());
 
-            string httpData = sr.ReadToEnd();
+            var httpData = sr.ReadToEnd();
 
             sr.Close();
             st.Close();

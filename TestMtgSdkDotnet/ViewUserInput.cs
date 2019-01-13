@@ -54,7 +54,7 @@ namespace TestMtgSdkDotnet
             // ディスクに保存するデータの集合に、編集中のカードが無ければ追加する
             if (_userInputCardInfos.All(s => s.id != _targetCardInfo.id))
             {
-                UserInputCardInfo userInputCardInfo = new UserInputCardInfo
+                var userInputCardInfo = new UserInputCardInfo
                 {
                     id = _targetCardInfo.id,
                     set = _targetCardInfo.set,
@@ -64,7 +64,7 @@ namespace TestMtgSdkDotnet
             }
 
             // フォームに表示中の内容を、ディスクに保存するデータに反映する
-            UserInputCardInfo temp = _userInputCardInfos.First(s => s.id == _targetCardInfo.id);
+            var temp = _userInputCardInfos.First(s => s.id == _targetCardInfo.id);
             temp.set = _targetCardInfo.set;
             temp.draftPoint = (int)DraftPointNumericUpDown.Value;
             temp.memo = MemoTextBox.Text;
@@ -113,7 +113,7 @@ namespace TestMtgSdkDotnet
             // 処理対象のユーザー入力情報があればフォームに反映する
             if (_userInputCardInfos.Any(s => s.id == _targetCardInfo.id))
             {
-                UserInputCardInfo temp = _userInputCardInfos.First(s => s.id == _targetCardInfo.id);
+                var temp = _userInputCardInfos.First(s => s.id == _targetCardInfo.id);
                 DraftPointNumericUpDown.Value = temp.draftPoint;
                 MemoTextBox.Text = temp.memo;
             }

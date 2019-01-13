@@ -3,7 +3,7 @@ using BrightIdeasSoftware;
 
 namespace TestMtgSdkDotnet
 {
-    class Util
+    internal class Util
     {
         /// <summary>
         /// ObjectListViewのColumnの初期設定を行う。
@@ -13,10 +13,10 @@ namespace TestMtgSdkDotnet
         /// <param name="objectListView">処理対象のObjectListView</param>
         public static void InitColumns(List<string> nameList, List<int> widthList, ObjectListView objectListView)
         {
-            for (int i = 0; i < nameList.Count; i++)
+            for (var i = 0; i < nameList.Count; i++)
             {
                 // ReSharper disable once UseObjectOrCollectionInitializer
-                OLVColumn columnHeader = new OLVColumn();
+                var columnHeader = new OLVColumn();
                 columnHeader.Text = nameList[i];
                 columnHeader.AspectName = nameList[i];
                 columnHeader.Width = widthList[i];
@@ -29,8 +29,8 @@ namespace TestMtgSdkDotnet
         {
             const string urlFormat = "http://mtgwiki.com/wiki/{0}/{1}";
 
-            string japaneseCardName = cardInfo.japaneseName;
-            string cardName = cardInfo.name;
+            var japaneseCardName = cardInfo.japaneseName;
+            var cardName = cardInfo.name;
             cardName = cardName.Replace(" ", "_");
 
             return string.Format(urlFormat, japaneseCardName, cardName);
@@ -38,7 +38,7 @@ namespace TestMtgSdkDotnet
 
         public static ScryfallCardInfo FindEqualingJapaneseScryfallCardInfo(CardInfo cardInfo, List<ScryfallCardInfo> scryfallCardInfos)
         {
-            ScryfallCardInfo scryfallCardInfo =
+            var scryfallCardInfo =
                 scryfallCardInfos.Find(s => s.multiverse_ids.Contains(cardInfo.japaneseMultiverseId));
 
             return scryfallCardInfo;
@@ -47,7 +47,7 @@ namespace TestMtgSdkDotnet
         public static ScryfallCardInfo FindEqualingEnglishScryfallCardInfo(CardInfo cardInfo,
             List<ScryfallCardInfo> scryfallCardInfos)
         {
-            ScryfallCardInfo scryfallCardInfo =
+            var scryfallCardInfo =
                 scryfallCardInfos.Find(s => s.multiverse_ids.Contains(cardInfo.multiverseid));
 
             return scryfallCardInfo;
