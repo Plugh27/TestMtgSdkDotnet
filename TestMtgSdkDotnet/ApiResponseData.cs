@@ -30,7 +30,7 @@ namespace TestMtgSdkDotnet
         public string rarity { get; set; }
         public string set { get; set; }
         public string text { get; set; }
-        public int multiverseid { get; set; }
+        public int multiverseid { get; set; } // TODO: stringにする
         public string imageUrl { get; set; }
 
         public List<ForeignNames> foreignNames { get; set; }
@@ -122,6 +122,7 @@ namespace TestMtgSdkDotnet
             }
         }
 
+        // TODO: multiverseIdはstringにする
         // TODO: ↓2つの処理、LINQでまとめる
 
         [JsonIgnore]

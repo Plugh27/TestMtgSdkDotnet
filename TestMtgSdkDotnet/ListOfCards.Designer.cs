@@ -61,6 +61,7 @@
             this.CardNameLabel = new System.Windows.Forms.Label();
             this.CardNameTextBox = new System.Windows.Forms.TextBox();
             this.ClearCardNameButton = new System.Windows.Forms.Button();
+            this.CopyHtmlLinkToWikiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.SoleListView)).BeginInit();
             this.CardListContextMenuStrip.SuspendLayout();
             this.ColorGroupBox.SuspendLayout();
@@ -84,14 +85,15 @@
             // CardListContextMenuStrip
             // 
             this.CardListContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.OpenJapaneaseWikiToolStripMenuItem});
+            this.OpenJapaneaseWikiToolStripMenuItem,
+            this.CopyHtmlLinkToWikiToolStripMenuItem});
             this.CardListContextMenuStrip.Name = "CardListContextMenuStrip";
-            this.CardListContextMenuStrip.Size = new System.Drawing.Size(165, 26);
+            this.CardListContextMenuStrip.Size = new System.Drawing.Size(236, 70);
             // 
             // OpenJapaneaseWikiToolStripMenuItem
             // 
             this.OpenJapaneaseWikiToolStripMenuItem.Name = "OpenJapaneaseWikiToolStripMenuItem";
-            this.OpenJapaneaseWikiToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
+            this.OpenJapaneaseWikiToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
             this.OpenJapaneaseWikiToolStripMenuItem.Text = "日本語Wikiに飛ぶ";
             this.OpenJapaneaseWikiToolStripMenuItem.Click += new System.EventHandler(this.OpenJapaneseWikiToolStripMenuItem_Click);
             // 
@@ -423,6 +425,13 @@
             this.ClearCardNameButton.UseVisualStyleBackColor = true;
             this.ClearCardNameButton.Click += new System.EventHandler(this.ClearCardNameButton_Click);
             // 
+            // CopyHtmlLinkToWikiToolStripMenuItem
+            // 
+            this.CopyHtmlLinkToWikiToolStripMenuItem.Name = "CopyHtmlLinkToWikiToolStripMenuItem";
+            this.CopyHtmlLinkToWikiToolStripMenuItem.Size = new System.Drawing.Size(235, 22);
+            this.CopyHtmlLinkToWikiToolStripMenuItem.Text = "HTMLリンクをクリップボードにコピー";
+            this.CopyHtmlLinkToWikiToolStripMenuItem.Click += new System.EventHandler(this.CopyHtmlLinkToWikiToolStripMenuItem_Click);
+            // 
             // ListOfCards
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -486,5 +495,6 @@
         private System.Windows.Forms.TextBox CardNameTextBox;
         private System.Windows.Forms.Button ClearCardNameButton;
         private System.Windows.Forms.CheckBox LandCheckBox;
+        private System.Windows.Forms.ToolStripMenuItem CopyHtmlLinkToWikiToolStripMenuItem;
     }
 }

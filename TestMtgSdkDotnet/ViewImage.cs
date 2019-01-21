@@ -153,5 +153,10 @@ namespace TestMtgSdkDotnet
         {
             Clipboard.SetImage(SolePictureBox.Image);
         }
+
+        private void Resize155ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClientSize = new Size(155, 219);
+        }
     }
 }

@@ -31,11 +31,12 @@
             this.components = new System.ComponentModel.Container();
             this.SolePictureBox = new System.Windows.Forms.PictureBox();
             this.ImageContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.CopyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.JapaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.EnglishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ScryfallJapaneseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ScryfallEnglishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.CopyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Resize155ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.SolePictureBox)).BeginInit();
             this.ImageContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -54,12 +55,20 @@
             // 
             this.ImageContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.CopyToClipboardToolStripMenuItem,
+            this.Resize155ToolStripMenuItem,
             this.JapaneseToolStripMenuItem,
             this.EnglishToolStripMenuItem,
             this.ScryfallJapaneseToolStripMenuItem,
             this.ScryfallEnglishToolStripMenuItem});
             this.ImageContextMenuStrip.Name = "ImageContextMenuStrip";
-            this.ImageContextMenuStrip.Size = new System.Drawing.Size(181, 136);
+            this.ImageContextMenuStrip.Size = new System.Drawing.Size(181, 158);
+            // 
+            // CopyToClipboardToolStripMenuItem
+            // 
+            this.CopyToClipboardToolStripMenuItem.Name = "CopyToClipboardToolStripMenuItem";
+            this.CopyToClipboardToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.CopyToClipboardToolStripMenuItem.Text = "クリップボードにコピー";
+            this.CopyToClipboardToolStripMenuItem.Click += new System.EventHandler(this.CopyToClipboardToolStripMenuItem_Click);
             // 
             // JapaneseToolStripMenuItem
             // 
@@ -89,12 +98,12 @@
             this.ScryfallEnglishToolStripMenuItem.Text = "Scryfall（英語）";
             this.ScryfallEnglishToolStripMenuItem.Click += new System.EventHandler(this.ScryfallEnglishToolStripMenuItem_Click);
             // 
-            // CopyToClipboardToolStripMenuItem
+            // Resize155ToolStripMenuItem
             // 
-            this.CopyToClipboardToolStripMenuItem.Name = "CopyToClipboardToolStripMenuItem";
-            this.CopyToClipboardToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.CopyToClipboardToolStripMenuItem.Text = "クリップボードにコピー";
-            this.CopyToClipboardToolStripMenuItem.Click += new System.EventHandler(this.CopyToClipboardToolStripMenuItem_Click);
+            this.Resize155ToolStripMenuItem.Name = "Resize155ToolStripMenuItem";
+            this.Resize155ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.Resize155ToolStripMenuItem.Text = "幅を155pxにする";
+            this.Resize155ToolStripMenuItem.Click += new System.EventHandler(this.Resize155ToolStripMenuItem_Click);
             // 
             // ViewImage
             // 
@@ -121,5 +130,6 @@
         private System.Windows.Forms.ToolStripMenuItem ScryfallJapaneseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ScryfallEnglishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem CopyToClipboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Resize155ToolStripMenuItem;
     }
 }

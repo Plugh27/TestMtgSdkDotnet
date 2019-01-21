@@ -390,5 +390,35 @@ namespace TestMtgSdkDotnet
             CardNameTextBox.Text = "";
             MakeSoleList();
         }
+
+        private void CopyHtmlLinkToWikiToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var selectedCardInfos = CardInfosFromSelectedObjects();
+            if (selectedCardInfos.Count != 1)
+            {
+                MessageBox.Show(@"複数選択時のリンク作成は未実装");
+                return;
+            }
+
+            var selectedCardInfo = selectedCardInfos.First();
+            string hyperlinkReference = Util.MtgwikiUrl(selectedCardInfo);
+            string bodyFormat = "&#060;&#060;{0}/{1}&#062;&#062;";
+            string doby = string.Format(bodyFormat, selectedCardInfo.japaneseName, selectedCardInfo.name);
+            string imageUrl = ImageUtil.OfficialCardImageUrl(selectedCardInfo.japaneseMultiverseId.ToString());
+
+            string allHtml = $@"<a href=""{hyperlinkReference}"" class=""showthumb"">
+{doby} <span class=""dummy2"">
+<img src=""{imageUrl}"" />
+</span>
+</a>";
+            try
+            {
+                Clipboard.SetText(allHtml);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
     }
 }

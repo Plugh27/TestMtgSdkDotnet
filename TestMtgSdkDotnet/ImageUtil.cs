@@ -22,6 +22,13 @@ namespace TestMtgSdkDotnet
         /// </summary>
         private const string ScryfallCardImageFileNameFormat = "Scryfall_{0}_{1}.jpg";
 
+        private const string OfficialCardImageUrlFormat = "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={0}&type=card";
+
+        public static string OfficialCardImageUrl(string multiverseId)
+        {
+            return string.Format(OfficialCardImageUrlFormat, multiverseId);
+        }
+
         private static string CardImageFileName(int multiverseId)
         {
             // TODO: 文字が混じるIDがあり得るのでstring型に変更したい
